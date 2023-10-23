@@ -18,12 +18,20 @@ public class CommonUser implements User{
         this.trash = new Trash();
     }
     @Override
-    public void changeUsername(String newName) {
+    public void setUsername(String newName) {
         this.username = newName;
     }
 
     @Override
-    public void changePassword(String newPassword) {
+    public void setPassword(String newPassword) {
         this.password = newPassword;
+    }
+
+    public void setNotebook(ArrayList<Notebook> notebook) {
+        this.notebook = notebook;
+    }
+
+    public ArrayList<Notebook> getNotebook() {
+        return notebook;
     }
 }
