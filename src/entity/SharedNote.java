@@ -1,14 +1,12 @@
 package entity;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public class SharedNote extends Note{
-    public ArrayList<User> sharedUsers;
+    public Map<User, Notebook> userNotebookMap;
 
     public SharedNote(Notebook notebook, String creationTime, String title, CommonUser owner, ArrayList<User> users){
         super(notebook, creationTime, title, owner);
-        this.sharedUsers = new ArrayList<User>();
-        sharedUsers.add(owner);
-        sharedUsers.addAll(users);
     }
 }

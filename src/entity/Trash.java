@@ -8,4 +8,6 @@ public class Trash {
     public Trash(){
         this.deleted = new ArrayList<Note>();
     }
+
+
 }
