@@ -1,4 +1,6 @@
 package data_access;
 
-public class FileNoteDataAccessObject implements CreateNoteDataAccessInterface{
+import use_case.notes.create_note.CreateNoteDataAccessInterface;
+
+public class FileNoteDataAccessObject implements CreateNoteDataAccessInterface {
 }
