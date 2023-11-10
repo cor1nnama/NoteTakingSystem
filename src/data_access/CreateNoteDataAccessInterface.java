@@ -1,4 +1,4 @@
-package use_case.notes.create_note;
+package data_access;
 
 public interface CreateNoteDataAccessInterface {
 
