@@ -27,6 +27,12 @@ public class CommonUser implements User{
         this.password = newPassword;
     }
 
+    @Override
+    public String getUsername(){return this.username;}
+
+    @Override
+    public String getPassword(){return this.password;}
+
     public void setNotebook(ArrayList<Notebook> notebook) {
         this.notebook = notebook;
     }
