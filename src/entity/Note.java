@@ -1,49 +1,31 @@
 package entity;
-
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class Note {
-    public Notebook notebook;
-    final public String creationTime;
     public String title;
+    public ArrayList<String> tags;
+    final public LocalDateTime creationTime;
     final public CommonUser owner;
     public String content;
-    public ArrayList<String> tag;
-    public boolean trash;
 
-    public Note(Notebook notebook, String creationTime, String title, CommonUser owner){
-        this.notebook = notebook;
-        this.creationTime = creationTime;
+    public Note(String title, ArrayList<String> tags, CommonUser owner){
         this.title = title;
+        this.tags = tags;
         this.owner = owner;
-        this.content = new String("");
-        this.tag = new ArrayList<String>();
-        this.trash = false;
-        notebook.notes.add(this);
-    }
-
-    public void setNotebook(Notebook notebook) {
-        this.notebook = notebook;
+        this.creationTime = LocalDateTime.now();
+        this.content = "";
     }
 
     public void setContent(String content) {
         this.content = content;
     }
 
-    public void setTag(ArrayList<String> tag) {
-        this.tag = tag;
-    }
+    public void setTag(String tag) { this.tags.add(tag); }
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public void setTrash(boolean trash) {
-        this.trash = trash;
-    }
-
-    public Notebook getNotebook() {
-        return notebook;
     }
 
     public String getContent() {
@@ -51,7 +33,8 @@ public class Note {
     }
 
     public String getCreationTime() {
-        return creationTime;
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+        return creationTime.format(format);
     }
 
     public String getTitle() {
@@ -62,7 +45,7 @@ public class Note {
         return owner;
     }
 
-    public ArrayList<String> getTag() {
-        return tag;
+    public ArrayList<String> getTags() {
+        return tags;
     }
 }
