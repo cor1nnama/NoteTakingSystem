@@ -10,6 +10,11 @@ public class FileNoteDataAccessObject implements CreateNoteDataAccessInterface {
     }
 
     @Override
+    public void save(Note note) {
+
+    }
+
+    @Override
     public boolean existsByTitle(String title) {
         return false;
     }
