@@ -5,4 +5,5 @@ import java.util.Map;
 public interface UserSignupDataAccessInterface {
     boolean existsByName(String identifier);
     void save(User user);
+    User getUser(String username);
 }

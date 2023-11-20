@@ -5,16 +5,16 @@ import java.util.ArrayList;
 public class Notebook {
     // categorize notes into different topic etc.
     public String name;
-    public User owner;
+    public String owner;
     public ArrayList<Note> notes;
 
-    public Notebook(String name, User owner){
+    public Notebook(String name, String owner){
         this.name = name;
         this.owner = owner;
         this.notes = new ArrayList<Note>();
     }
 
-    public User getOwner() {
+    public String getOwner() {
         return owner;
     }
 

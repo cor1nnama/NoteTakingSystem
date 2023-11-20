@@ -81,4 +81,13 @@ public class FileUserDataAccessObject implements UserSignupDataAccessInterface, 
             throw new RuntimeException(e);
         }
     }
+
+    public boolean authenticateUser(String providedUsername, String providedPassword){
+        User user = accounts.get(providedUsername);
+        return user.getPassword().equals(providedPassword);
+    }
+
+    public User getUser(String username){
+        return accounts.get(username);
+    }
 }
