@@ -8,7 +8,7 @@ public class Notebook {
     public User owner;
     public ArrayList<Note> notes;
 
-    public Notebook(String name, User owner){
+    public Notebook(String name, CommonUser owner){
         this.name = name;
         this.owner = owner;
         this.notes = new ArrayList<Note>();
@@ -29,4 +29,6 @@ public class Notebook {
     public ArrayList<Note> getNotes() {
         return notes;
     }
+
+    public void addNote(Note note) { notes.add(note); }
 }

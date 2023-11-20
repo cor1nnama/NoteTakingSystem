@@ -8,19 +8,22 @@ import java.io.*;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.List;
 
 public class FileNotebookDataAccessObject implements NotebookDataAccessInterface{
     private final File csvFile;
 
     private final Map<String, Integer> headers = new LinkedHashMap<>();
 
-    private final Map<String, Notebook> notebookMap = new HashMap<>();
+    private final Map<String, List<Notebook>> notebookMap = new HashMap<>();
 
     private NotebookFactory notebookFactory;
-    private UserSignupDataAccessInterface userSignupDataAccessObject;
+    private UserSignupDataAccessInterface userDAO;
 
-    public FileNotebookDataAccessObject(String csvPath, NotebookFactory notebookFactory) throws IOException {
+    public FileNotebookDataAccessObject(String csvPath, NotebookFactory notebookFactory,
+                                        UserSignupDataAccessInterface userDAO) throws IOException {
         this.notebookFactory = notebookFactory;
+        this.userDAO = userDAO;
 
         csvFile = new File(csvPath);
         headers.put("username", 0);
@@ -35,25 +38,30 @@ public class FileNotebookDataAccessObject implements NotebookDataAccessInterface
 
                 assert header.equals("username,notebook");
 
-                String row;
+/**                String row;
                 while ((row = reader.readLine()) != null) {
                     String[] col = row.split(",");
                     String username = String.valueOf(col[headers.get("username")]);
                     String notebookName = String.valueOf(col[headers.get("notebook")]);
-                    if (userSignupDataAccessObject.existsByName(username)){
-                        Map<String, User> accounts = userSignupDataAccessObject.getAccount();
+                    if (userDAO.existsByName(username)){
+                        for (String username1:headers.keySet()){
+                            Map<String, User> accounts = userDAO.getUser(username1);
+                        }
                         User user = accounts.get(username);
-                        Notebook notebook = notebookFactory.create(notebookName, user);
+                        Notebook notebook = notebookFactory.create(notebookName, user.getUsername());
                         notebookMap.put(notebookName, notebook);
                     }
                 }
+ */
             }
         }
     }
 
     @Override
-    public void save(Notebook notebook) {
-        notebookMap.put(notebook.getName(), notebook);
+    public void save(String username, Notebook notebook) {
+        List<Notebook> notebookList = notebookMap.get(username);
+        notebookList.add(notebook);
+        notebookMap.put(username, notebookList);
         this.save();
     }
 
@@ -64,10 +72,12 @@ public class FileNotebookDataAccessObject implements NotebookDataAccessInterface
             writer.write(String.join(",", headers.keySet()));
             writer.newLine();
 
-            for (Notebook notebook : notebookMap.values()) {
-                String line = String.format(notebook.getName(), notebook.getOwner());
-                writer.write(line);
-                writer.newLine();
+            for (List<Notebook> notebookList : notebookMap.values()) {
+                for (Notebook notebook: notebookList){
+                    String line = String.format(notebook.getName(), notebook.getOwner());
+                    writer.write(line);
+                    writer.newLine();
+                }
             }
 
             writer.close();
