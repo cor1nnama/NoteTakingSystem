@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class FileUserDataAccessObject implements SignupUserDataAccessInterface, LoginUserDataAccessInterface, LogoutUserDataAccessInterface {
+public class FileUserDataAccessObject implements UserSignupDataAccessInterface, LoginUserDataAccessInterface, LogoutUserDataAccessInterface {
     private final File csvFile;
 
     private final Map<String, Integer> headers = new LinkedHashMap<>();
@@ -49,5 +49,45 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
                 }
             }
         }
+    }
+
+    @Override
+    public boolean existsByName(String identifier) {
+        return accounts.containsKey(identifier);
+    }
+
+    @Override
+    public void save(User user) {
+        accounts.put(user.getUsername(), user);
+        this.save();
+    }
+
+    private void save() {
+        BufferedWriter writer;
+        try {
+            writer = new BufferedWriter(new FileWriter(csvFile));
+            writer.write(String.join(",", headers.keySet()));
+            writer.newLine();
+
+            for (User user : accounts.values()) {
+                String line = String.format("%s,%s,%s", user.getUsername(), user.getPassword());
+                writer.write(line);
+                writer.newLine();
+            }
+
+            writer.close();
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public boolean authenticateUser(String providedUsername, String providedPassword){
+        User user = accounts.get(providedUsername);
+        return user.getPassword().equals(providedPassword);
+    }
+
+    public User getUser(String username){
+        return accounts.get(username);
     }
 }
