@@ -1,19 +1,18 @@
 package entity;
+import java.io.Serializable;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-public class Note {
+public class Note implements Serializable {
     public String title;
     public ArrayList<String> tags;
     final public LocalDateTime creationTime;
-    final public CommonUser owner;
     public String content;
 
-    public Note(String title, ArrayList<String> tags, CommonUser owner){
+    public Note(String title, ArrayList<String> tags){
         this.title = title;
         this.tags = tags;
-        this.owner = owner;
         this.creationTime = LocalDateTime.now();
         this.content = "";
     }
@@ -41,11 +40,17 @@ public class Note {
         return title;
     }
 
-    public CommonUser getOwner() {
-        return owner;
-    }
-
     public ArrayList<String> getTags() {
         return tags;
     }
+
+    public String toString() {
+        return "Note{" +
+                "title=" + title +
+                ", tags=" + tags +
+                ", creationTime=" + creationTime +
+                ", content=" + content +
+                "}";
+    }
 }
+

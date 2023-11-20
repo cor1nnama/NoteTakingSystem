@@ -3,5 +3,10 @@ package entity;
 import java.util.ArrayList;
 
 public class NoteFactory {
-    public Note create(String title, ArrayList<String> tags, String date, String author) { return new Note(title, tags, date, author); }
+
+    public void initializeNotes() {
+        //reads file for stored notes and makes them as objects
+    }
+
+    public Note create(String title, ArrayList<String> tags, String date, CommonUser author) { return new Note(title, tags, author); }
 }
