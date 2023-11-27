@@ -12,7 +12,7 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-public class EditView extends JPanel implements ActionListener, PropertyChangeListener {
+public class EditView extends JPanel implements PropertyChangeListener {
     private EditViewModel editViewModel;
     private EditController editController;
     private JButton saveNote;
@@ -58,8 +58,4 @@ public class EditView extends JPanel implements ActionListener, PropertyChangeLi
         }
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        System.out.println("Click " + e.getActionCommand());
-    }
 }
