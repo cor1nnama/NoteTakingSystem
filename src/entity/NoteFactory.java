@@ -8,5 +8,5 @@ public class NoteFactory {
         //reads file for stored notes and makes them as objects
     }
 
-    public Note create(String title, ArrayList<String> tags, String date, CommonUser author) { return new Note(title, tags, author); }
+    public Note create(String title, ArrayList<String> tags, String date) { return new Note(title, tags); }
 }

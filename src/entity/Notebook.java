@@ -1,21 +1,19 @@
 package entity;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class Notebook {
     // categorize notes into different topic etc.
     public String name;
-    public User owner;
+    private final LocalDateTime creationTime;
     public ArrayList<Note> notes;
 
-    public Notebook(String name, CommonUser owner){
+    public Notebook(String name){
         this.name = name;
-        this.owner = owner;
+        this.creationTime = LocalDateTime.now();
         this.notes = new ArrayList<Note>();
-    }
-
-    public User getOwner() {
-        return owner;
     }
 
     public String getName() {
@@ -31,4 +29,9 @@ public class Notebook {
     }
 
     public void addNote(Note note) { notes.add(note); }
+
+    public String getCreationTime() {
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+        return creationTime.format(format);
+    }
 }

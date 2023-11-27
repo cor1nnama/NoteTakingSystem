@@ -1,6 +1,9 @@
 package entity;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class CommonUser implements User{
 
@@ -8,13 +11,13 @@ public class CommonUser implements User{
 
     public String username;
     public String password;
-    public ArrayList<Notebook> notebook;
+    public ArrayList<LocalDateTime> notebooks;
     public Trash trash;
 
     public CommonUser(String username, String password){
         this.username = username;
         this.password = password;
-        this.notebook = new ArrayList<Notebook>();
+        this.notebooks = new ArrayList<>();
         this.trash = new Trash();
     }
     @Override
@@ -33,8 +36,8 @@ public class CommonUser implements User{
     @Override
     public String getPassword(){return this.password;}
 
-    public void setNotebook(ArrayList<Notebook> notebook) {
-        this.notebook = notebook;
+    public void addNotebook(Notebook notebook) {
+        this.notebooks.add(notebook.getCreationTime());
     }
 
     public ArrayList<Notebook> getNotebook() {

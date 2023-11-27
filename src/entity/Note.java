@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class Note implements Serializable {
     public String title;
     public ArrayList<String> tags;
-    final public LocalDateTime creationTime;
+    public final LocalDateTime creationTime;
     public String content;
 
     public Note(String title, ArrayList<String> tags){

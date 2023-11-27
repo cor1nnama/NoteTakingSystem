@@ -1,6 +1,5 @@
 import interface_adapter.ViewManagerModel;
 import interface_adapter.user_end.login.LoginViewModel;
-import view.LoggedInView;
 import view.LoginView;
 import view.SignupView;
 import view.ViewManager;
