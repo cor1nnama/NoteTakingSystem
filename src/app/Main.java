@@ -1,3 +1,5 @@
+package app;
+
 import interface_adapter.ViewManagerModel;
 import interface_adapter.user_end.login.LoginViewModel;
 import view.LoginView;

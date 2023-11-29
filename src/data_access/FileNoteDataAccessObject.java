@@ -28,17 +28,20 @@ public class FileNoteDataAccessObject implements CreateNoteDataAccessInterface, 
     }
 
     @Override
-    public void create(Note note) {
-        //saves note in memory
+    public void saveNote(Note note) throws IOException {
+        notes.put(note.creationTime, note);
+        this.writeToFile();
     }
 
     //add catches for errors for both file methods
     @Override
-    public void writeToFile(Note note) throws IOException {
+    public void writeToFile() throws IOException {
         fsOut = new FileOutputStream(notesFile);
         osOut = new ObjectOutputStream(fsOut);
 
-        osOut.writeObject(note);
+        for (LocalDateTime ldt : notes.keySet()) {
+            osOut.writeObject(notes.get(ldt));
+        }
 
         osOut.close();
         fsOut.close();
@@ -75,22 +78,9 @@ public class FileNoteDataAccessObject implements CreateNoteDataAccessInterface, 
 
     @Override
     public ArrayList<Note> getAllNotes() {
-        ArrayList<Note> notes = new ArrayList<>();
-        try (BufferedReader reader = new BufferedReader(new FileReader(CSV_FILE_PATH))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] data = line.split(",");
-                if (data.length == 2) { // Assuming CSV format: title,content
-                    String title = data[0];
-                    String content = data[1];
-                    Note note = new Note(title, content);
-                    notes.add(note);
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return notes;
+        ArrayList<Note> noteArray = new ArrayList<>();
+        for (LocalDateTime ldt)
+        return this.notes;
     }
 
     public void saveEdit(Note note) {
