@@ -1,23 +1,23 @@
 package interface_adapter.notes.create_notebook;
 
 import interface_adapter.ViewManagerModel;
-import interface_adapter.user_end.logged_in.LoggedInState;
-import interface_adapter.user_end.logged_in.LoggedInViewModel;
+import interface_adapter.user_end.NotebookLibraryView.NotebookLibraryState;
+import interface_adapter.user_end.NotebookLibraryView.NotebookLibraryViewModel;
 import use_case.notes.create_notebook.CreateNotebookOutputBoundary;
 import use_case.notes.create_notebook.CreateNotebookOutputData;
 
 public class CreateNotebookPresenter implements CreateNotebookOutputBoundary {
 
     private final CreateNotebookViewModel createNotebookViewModel;
-    private final LoggedInViewModel loggedInViewModel;
+    private final NotebookLibraryViewModel notebookLibraryViewModel;
     private ViewManagerModel viewManagerModel;
 
     public CreateNotebookPresenter(ViewManagerModel viewManagerModel,
                                    CreateNotebookViewModel createNotebookViewModel,
-                                   LoggedInViewModel loggedInViewModel){
+                                   NotebookLibraryViewModel notebookLibraryViewModel){
         this.viewManagerModel = viewManagerModel;
         this.createNotebookViewModel = createNotebookViewModel;
-        this.loggedInViewModel = loggedInViewModel;
+        this.notebookLibraryViewModel = notebookLibraryViewModel;
     }
     @Override
     public void prepareFailView(String s) {
@@ -29,12 +29,12 @@ public class CreateNotebookPresenter implements CreateNotebookOutputBoundary {
     @Override
     public void prepareSuccessView(CreateNotebookOutputData createNotebookOutputData) {
         CreateNotebookState createNotebookState = createNotebookViewModel.getState();
-        LoggedInState loggedInState = loggedInViewModel.getState();
+        NotebookLibraryState notebookLibraryState = notebookLibraryViewModel.getState();
         createNotebookState.setNotebookName(createNotebookOutputData.getNotebookName());
         // TODO: Need to add a new button to the loggedInState
         this.createNotebookViewModel.setState(createNotebookState);
         createNotebookViewModel.firePropertyChanged();
-        viewManagerModel.setActiveView(loggedInViewModel.getViewName());
+        viewManagerModel.setActiveView(notebookLibraryViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }
 }

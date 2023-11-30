@@ -1,20 +1,19 @@
-package interface_adapter.user_end.logged_in;
+package interface_adapter.user_end.NotebookLibraryView;
 
 import interface_adapter.ViewModel;
-import interface_adapter.notes.create_notebook.CreateNotebookState;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
-public class LoggedInViewModel extends ViewModel {
+public class NotebookLibraryViewModel extends ViewModel {
     public final String TITLE_LABEL = null;
 
     // TODO: NEED BUTTONS FOR CHOOSING NOTEBOOKS
 
-    private LoggedInState state = new LoggedInState();
+    private NotebookLibraryState state = new NotebookLibraryState();
 
-    public LoggedInViewModel(){super("loggedIn");}
-    public LoggedInState getState() {
+    public NotebookLibraryViewModel(){super("loggedIn");}
+    public NotebookLibraryState getState() {
         return this.state;
     }
 

@@ -1,13 +1,11 @@
 package view;
 
 import data_access.EditNoteDataAccessInterface;
-import entity.CommonUserFactory;
-import entity.UserFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.notes.editNote.EditController;
 import interface_adapter.notes.editNote.EditPresenter;
 import interface_adapter.notes.editNote.EditViewModel;
-import interface_adapter.user_end.logged_in.LoggedInViewModel;
+import interface_adapter.user_end.NotebookLibraryView.NotebookLibraryViewModel;
 import use_case.notes.edit_notes.EditInteractor;
 import use_case.notes.edit_notes.EditNoteInputBoundary;
 import use_case.notes.edit_notes.EditNoteOutputBoundary;
@@ -17,10 +15,10 @@ import java.io.IOException;
 
 public class EditUseCaseFactory {
     public static EditView create(
-            ViewManagerModel viewManagerModel, EditViewModel editViewModel, EditNoteDataAccessInterface userDataAccessObject, LoggedInViewModel loggedInViewModel) {
+            ViewManagerModel viewManagerModel, EditViewModel editViewModel, EditNoteDataAccessInterface userDataAccessObject, NotebookLibraryViewModel notebookLibraryViewModel) {
 
         try {
-            EditController editController = createUserEditCase(viewManagerModel, editViewModel, userDataAccessObject, loggedInViewModel);
+            EditController editController = createUserEditCase(viewManagerModel, editViewModel, userDataAccessObject, notebookLibraryViewModel);
             return new EditView(editViewModel, editController);
 
         } catch (IOException e) {
@@ -29,10 +27,10 @@ public class EditUseCaseFactory {
 
         return null;
     }
-    private static EditController createUserEditCase(ViewManagerModel viewManagerModel, EditViewModel editViewModel, EditNoteDataAccessInterface userDataAccessObject, LoggedInViewModel loggedInViewModel) throws IOException {
+    private static EditController createUserEditCase(ViewManagerModel viewManagerModel, EditViewModel editViewModel, EditNoteDataAccessInterface userDataAccessObject, NotebookLibraryViewModel notebookLibraryViewModel) throws IOException {
 
         // Notice how we pass this method's parameters to the Presenter.
-        EditNoteOutputBoundary editOutputBoundary = new EditPresenter(viewManagerModel, editViewModel, loggedInViewModel);
+        EditNoteOutputBoundary editOutputBoundary = new EditPresenter(viewManagerModel, editViewModel, notebookLibraryViewModel);
         EditNoteInputBoundary editInteractor = new EditInteractor(
                 userDataAccessObject, editOutputBoundary);
 

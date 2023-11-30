@@ -1,32 +1,32 @@
 package interface_adapter.user_end.login;
 
 import interface_adapter.ViewManagerModel;
-import interface_adapter.user_end.logged_in.LoggedInState;
-import interface_adapter.user_end.logged_in.LoggedInViewModel;
+import interface_adapter.user_end.NotebookLibraryView.NotebookLibraryState;
+import interface_adapter.user_end.NotebookLibraryView.NotebookLibraryViewModel;
 import use_case.user_end.login.LoginOutputBoundary;
 import use_case.user_end.login.LoginOutputData;
 
 public class LoginPresenter implements LoginOutputBoundary {
-    private final LoggedInViewModel loggedInViewModel;
+    private final NotebookLibraryViewModel notebookLibraryViewModel;
     private final LoginViewModel loginViewModel;
     private ViewManagerModel viewManagerModel;
 
     public LoginPresenter(ViewManagerModel viewManagerModel,
-                             LoggedInViewModel loggedInViewModel,
+                             NotebookLibraryViewModel notebookLibraryViewModel,
                              LoginViewModel loginViewModel){
         this.viewManagerModel = viewManagerModel;
-        this.loggedInViewModel = loggedInViewModel;
+        this.notebookLibraryViewModel = notebookLibraryViewModel;
         this.loginViewModel = loginViewModel;
     }
 
     @Override
     public void prepareSuccessView(LoginOutputData user) {
         LoginState loginState = loginViewModel.getState();
-        LoggedInState loggedInState = loggedInViewModel.getState();
-        loggedInState.setUsername(loginState.getUsername());
-        this.loggedInViewModel.setState(loggedInState);
-        loggedInViewModel.firePropertyChanged();
-        viewManagerModel.setActiveView(loggedInViewModel.getViewName());
+        NotebookLibraryState notebookLibraryState = notebookLibraryViewModel.getState();
+        notebookLibraryState.setUsername(loginState.getUsername());
+        this.notebookLibraryViewModel.setState(notebookLibraryState);
+        notebookLibraryViewModel.firePropertyChanged();
+        viewManagerModel.setActiveView(notebookLibraryViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }
 

@@ -1,12 +1,12 @@
-package interface_adapter.user_end.logged_in;
+package interface_adapter.user_end.NotebookLibraryView;
 
-public class LoggedInState {
+public class NotebookLibraryState {
     private String username = "";
     private String usernameError = null;
     private String password = "";
     private String passwordError = null;
 
-    public LoggedInState(LoggedInState copy) {
+    public NotebookLibraryState(NotebookLibraryState copy) {
         username = copy.username;
         usernameError = copy.usernameError;
         password = copy.password;
@@ -14,7 +14,7 @@ public class LoggedInState {
     }
 
     // Because of the previous copy constructor, the default constructor must be explicit.
-    public LoggedInState() {}
+    public NotebookLibraryState() {}
 
     public String getUsername() {
         return username;
