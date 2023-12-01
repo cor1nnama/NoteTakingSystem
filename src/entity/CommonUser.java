@@ -39,8 +39,4 @@ public class CommonUser implements User{
     public void addNotebook(Notebook notebook) {
         this.notebooks.add(notebook.getCreationTime());
     }
-
-    public ArrayList<Notebook> getNotebook() {
-        return notebook;
-    }
 }

@@ -30,8 +30,7 @@ public class Notebook {
 
     public void addNote(Note note) { notes.add(note); }
 
-    public String getCreationTime() {
-        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
-        return creationTime.format(format);
+    public LocalDateTime getCreationTime() {
+        return creationTime;
     }
 }
