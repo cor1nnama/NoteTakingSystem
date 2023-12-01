@@ -18,6 +18,9 @@ public class NotebookLibraryViewModel extends ViewModel {
     public NotebookLibraryState getState() {
         return this.state;
     }
+    public void setState(NotebookLibraryState state) {
+        this.state = state;
+    }
 
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
     @Override
