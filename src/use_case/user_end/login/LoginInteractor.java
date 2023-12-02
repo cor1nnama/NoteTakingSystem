@@ -7,7 +7,7 @@ public class LoginInteractor implements LoginInputBoundary{
     final LoginUserDataAccessInterface userDAO;
     final LoginOutputBoundary loginPresenter;
 
-    public LoginInteractor(FileUserDataAccessObject userDAO,
+    public LoginInteractor(LoginUserDataAccessInterface userDAO,
                            LoginOutputBoundary loginPresenter){
         this.loginPresenter = loginPresenter;
         this.userDAO = userDAO;

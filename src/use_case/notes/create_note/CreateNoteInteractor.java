@@ -22,7 +22,7 @@ public class CreateNoteInteractor implements CreateNoteInputBoundary {
         if (noteDAO.existsByTitle(createNoteInputData.getTitle())) {
             //notePresenter.prepareFailView("Title already exists.");
         } else {
-            Note note = noteFactory.create(createNoteInputData.getTitle(), createNoteInputData.getTags(), createNoteInputData.getDate(), createNoteInputData.getAuthor());
+            Note note = noteFactory.create(createNoteInputData.getTitle(), createNoteInputData.getTags(), createNoteInputData.getDate());
             noteDAO.save(note);
         }
     }

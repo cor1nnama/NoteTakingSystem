@@ -2,6 +2,7 @@ package data_access;
 
 import entity.User;
 import entity.UserFactory;
+import use_case.user_end.Notebook.NotebookUserDataAccessInterface;
 import use_case.user_end.login.LoginUserDataAccessInterface;
 import use_case.user_end.signup.UserSignupDataAccessInterface;
 
@@ -11,7 +12,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class FileUserDataAccessObject implements UserSignupDataAccessInterface, LoginUserDataAccessInterface, LogoutUserDataAccessInterface {
+public class FileUserDataAccessObject implements UserSignupDataAccessInterface, LoginUserDataAccessInterface, NotebookUserDataAccessInterface, LogoutUserDataAccessInterface {
     private final File csvFile;
 
     private final Map<String, Integer> headers = new LinkedHashMap<>();

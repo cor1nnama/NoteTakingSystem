@@ -7,14 +7,12 @@ import entity.CommonUserFactory;
 import entity.NoteFactory;
 import entity.NotebookFactory;
 import interface_adapter.ViewManagerModel;
+import interface_adapter.notes.editNote.EditViewModel;
 import interface_adapter.user_end.NotebookLibraryView.NotebookLibraryState;
 import interface_adapter.user_end.NotebookLibraryView.NotebookLibraryViewModel;
 import interface_adapter.user_end.login.LoginViewModel;
 import interface_adapter.user_end.signup.SignupViewModel;
-import view.LoginView;
-import view.NotebookView;
-import view.SignupView;
-import view.ViewManager;
+import view.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -42,6 +40,8 @@ public class Main {
         // be observed by the Views.
         LoginViewModel loginViewModel = new LoginViewModel();
         NotebookLibraryViewModel notebookLibraryViewModel = new NotebookLibraryViewModel();
+        EditViewModel editViewModel = new EditViewModel();
+        NoteLibraryViewModel noteLibraryViewModel = new NoteLibraryViewModel();
         SignupViewModel signupViewModel = new SignupViewModel();
 
         //Construction of the DAOs
@@ -73,7 +73,11 @@ public class Main {
         LoginView loginView = LoginUseCaseFactory.create(viewManagerModel, loginViewModel, notebookLibraryViewModel, userDataAccessObject);
         views.add(loginView, loginView.viewName);
 
-        NotebookView notebookView = NotebookUseCaseFactory.create(viewManagerModel, notebookLibraryViewModel, noteViewModel, userDataAccessObject);
+        NotebookView notebookView = NotebookUseCaseFactory.create(viewManagerModel, notebookLibraryViewModel, noteLibraryViewModel, userDataAccessObject);
+        views.add(notebookView, notebookView.viewName);
+
+        NoteView noteView = NoteUseCaseFactory.create(viewManagerModel, notebookLibraryViewModel, editViewModel, userDataAccessObject);
+        views.add(noteView, noteView.viewName);
 
         viewManagerModel.setActiveView(signupView.viewName);
         cardLayout.show(views, viewManagerModel.getActiveView());
