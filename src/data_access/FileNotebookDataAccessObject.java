@@ -18,12 +18,10 @@ public class FileNotebookDataAccessObject implements NotebookDataAccessInterface
     private final Map<String, List<Notebook>> notebookMap = new HashMap<>();
 
     private NotebookFactory notebookFactory;
-    private UserSignupDataAccessInterface userDAO;
 
-    public FileNotebookDataAccessObject(String csvPath, NotebookFactory notebookFactory,
-                                        UserSignupDataAccessInterface userDAO) throws IOException {
+
+    public FileNotebookDataAccessObject(String csvPath, NotebookFactory notebookFactory) throws IOException {
         this.notebookFactory = notebookFactory;
-        this.userDAO = userDAO;
 
         csvFile = new File(csvPath);
         headers.put("username", 0);

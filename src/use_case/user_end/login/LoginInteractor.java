@@ -4,7 +4,7 @@ import data_access.FileNotebookDataAccessObject;
 import data_access.FileUserDataAccessObject;
 
 public class LoginInteractor implements LoginInputBoundary{
-    final FileUserDataAccessObject userDAO;
+    final LoginUserDataAccessInterface userDAO;
     final LoginOutputBoundary loginPresenter;
 
     public LoginInteractor(FileUserDataAccessObject userDAO,
@@ -20,7 +20,7 @@ public class LoginInteractor implements LoginInputBoundary{
         } else if (!userDAO.authenticateUser(loginInputData.getUsername(), loginInputData.getPassword())){
            loginPresenter.prepareFailView("Incorrect password.");
         } else {
-            LoginOutputData loginOutputData = new LoginOutputData(userDAO.getUser(loginInputData.getUsername()));
+            LoginOutputData loginOutputData = new LoginOutputData(userDAO.get(loginInputData.getUsername()));
             loginPresenter.prepareSuccessView(loginOutputData);
         }
     }

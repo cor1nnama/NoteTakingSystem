@@ -2,7 +2,8 @@ package data_access;
 
 import entity.User;
 import entity.UserFactory;
-import use_case.user_end.signup.SignupUserDataAccessInterface;
+import use_case.user_end.login.LoginUserDataAccessInterface;
+import use_case.user_end.signup.UserSignupDataAccessInterface;
 
 import java.io.*;
 import java.time.LocalDateTime;
@@ -62,6 +63,11 @@ public class FileUserDataAccessObject implements UserSignupDataAccessInterface, 
         this.save();
     }
 
+    @Override
+    public User get(String username) {
+        return accounts.get(username);
+    }
+
     private void save() {
         BufferedWriter writer;
         try {
@@ -87,7 +93,5 @@ public class FileUserDataAccessObject implements UserSignupDataAccessInterface, 
         return user.getPassword().equals(providedPassword);
     }
 
-    public User getUser(String username){
-        return accounts.get(username);
-    }
+
 }
