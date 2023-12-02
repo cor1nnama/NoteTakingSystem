@@ -1,16 +1,18 @@
 package interface_adapter.user_end.NotebookLibraryView;
 
+import entity.Notebook;
+
+import java.time.LocalDateTime;
+import java.util.Map;
+
 public class NotebookLibraryState {
     private String username = "";
-    private String usernameError = null;
-    private String password = "";
-    private String passwordError = null;
+
+    private Map<LocalDateTime, Notebook> userNotebooks;
 
     public NotebookLibraryState(NotebookLibraryState copy) {
         username = copy.username;
-        usernameError = copy.usernameError;
-        password = copy.password;
-        passwordError = copy.passwordError;
+        userNotebooks = copy.userNotebooks;
     }
 
     // Because of the previous copy constructor, the default constructor must be explicit.
@@ -19,32 +21,13 @@ public class NotebookLibraryState {
     public String getUsername() {
         return username;
     }
+    public void setUsername(String username) { this.username = username; }
 
-    public String getUsernameError() {
-        return usernameError;
+    public Map<LocalDateTime, Notebook> getUserNotebooks() {
+        return userNotebooks;
     }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public String getPasswordError() {
-        return passwordError;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public void setUsernameError(String usernameError) {
-        this.usernameError = usernameError;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public void setPasswordError(String passwordError) {
-        this.passwordError = passwordError;
+    public void setUserNotebooks(Map<LocalDateTime, Notebook> userNotebooks) {
+        this.userNotebooks = userNotebooks;
     }
 }
+
