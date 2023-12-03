@@ -5,6 +5,8 @@ import interface_adapter.user_end.NotebookLibraryView.NotebookLibraryController;
 import interface_adapter.user_end.NotebookLibraryView.NotebookLibraryPresenter;
 import interface_adapter.user_end.NotebookLibraryView.NotebookLibraryViewModel;
 import interface_adapter.user_end.login.LoginPresenter;
+import use_case.user_end.Notebook.NotebookInputBoundary;
+import use_case.user_end.Notebook.NotebookInteractor;
 import use_case.user_end.Notebook.NotebookOutputBoundary;
 import use_case.user_end.Notebook.NotebookUserDataAccessInterface;
 import view.NotebookView;
@@ -35,6 +37,7 @@ public class NotebookUseCaseFactory {
                                                                    NotebookUserDataAccessInterface notebookUserDataAccessInterface) {
 
         NotebookOutputBoundary notebookOutputBoundary = new NotebookLibraryPresenter(viewManagerModel, noteLibraryViewModel, notebookLibraryViewModel);
+        NotebookInputBoundary notebookInteractor = new NotebookInteractor(notebookUserDataAccessInterface, notebookOutputBoundary);
     }
 
 }
