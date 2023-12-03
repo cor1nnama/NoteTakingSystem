@@ -1,7 +1,7 @@
 package interface_adapter.notes.deleteNote;
 
 import interface_adapter.ViewModel;
-import interface_adapter.notes.editNote.EditState;
+
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;

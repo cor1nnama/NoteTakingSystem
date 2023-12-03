@@ -1,34 +1,34 @@
 package interface_adapter.notes.editNote;
 
 import entity.Note;
+import view.EditView;
+
+import java.time.LocalDateTime;
 
 public class EditState {
-    private boolean editing;
-    private Note note;
+    private LocalDateTime creationTime;
+
+    private String title;
+
+    private String content;
 
     private String editTitleError = null;
 
-    public EditState(boolean editing, Note note){
-        this.editing = editing;
-        this.note = note;
+    public EditState(LocalDateTime creationTime, String title, String content){
+        this.creationTime = creationTime;
+        this.title = title;
+        this.content = content;
     }
 
     public EditState(){};
 
-    public Note getNote() {
-        return note;
+    public LocalDateTime getCreationTime() {
+        return creationTime;
     }
 
-    public boolean getEditing() {
-        return editing;
-    }
 
-    public void setEditing(Boolean editing) {
-        this.editing = editing;
-    }
-
-    public void setNote(Note note) {
-        this.note = note;
+    public void setCreationTime(LocalDateTime creationTime) {
+        this.creationTime= creationTime;
     }
 
     public void setEditTitleError(String editTitleError) {
@@ -37,5 +37,21 @@ public class EditState {
 
     public String getEditTitleError() {
         return editTitleError;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public String getTitle() {
+        return title;
     }
 }

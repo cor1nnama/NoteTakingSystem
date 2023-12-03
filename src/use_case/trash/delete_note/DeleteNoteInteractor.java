@@ -2,6 +2,7 @@ package use_case.trash.delete_note;
 
 import entity.Note;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 
 public class DeleteNoteInteractor  implements  DeleteNoteInputBoundary{
@@ -13,7 +14,7 @@ public class DeleteNoteInteractor  implements  DeleteNoteInputBoundary{
         this.deletePresenter = deletePresenter;
     }
     @Override
-    public void execute(DeleteNoteInputData deleteNoteInputData) {
+    public void execute(DeleteNoteInputData deleteNoteInputData) throws IOException {
         LocalDateTime creationTime = deleteNoteInputData.getCreationTime();
         Note note = deleteNoteDataAccessInterface.getNoteByCreationTime(creationTime);
         deleteNoteDataAccessInterface.delete(note);

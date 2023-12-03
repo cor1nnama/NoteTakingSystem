@@ -2,15 +2,15 @@ package data_access;
 
 import entity.Note;
 import entity.NoteFactory;
+import use_case.notes.add_tags.AddTagDataAccessInterface;
 import use_case.notes.create_note.CreateNoteDataAccessInterface;
+import use_case.trash.delete_note.DeleteNoteDataAccessInterface;
 
 import java.io.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 
-public class FileNoteDataAccessObject implements CreateNoteDataAccessInterface, EditNoteDataAccessInterface {
+public class FileNoteDataAccessObject implements CreateNoteDataAccessInterface, EditNoteDataAccessInterface, AddTagDataAccessInterface, DeleteNoteDataAccessInterface {
     private final File notesFile;
     private static final String CSV_FILE_PATH = "notes.csv";
     private final Map<String, Integer> headers = new LinkedHashMap<>();
@@ -71,16 +71,11 @@ public class FileNoteDataAccessObject implements CreateNoteDataAccessInterface, 
         return false;
     }
 
-    @Override
-    public String open(Note note) {
-        return null;
-    }
 
     @Override
     public ArrayList<Note> getAllNotes() {
-        ArrayList<Note> noteArray = new ArrayList<>();
-        for (LocalDateTime ldt)
-        return this.notes;
+        Collection<Note> values= notes.values();
+        return new ArrayList<>(values);
     }
 
     public void saveEdit(Note note) {
@@ -95,13 +90,23 @@ public class FileNoteDataAccessObject implements CreateNoteDataAccessInterface, 
     }
 
     public Note getNoteByCreationTime(LocalDateTime dateTime){
-        ArrayList <Note> notes = this.getAllNotes();
-        for (Note note: notes) {
-            if (note.getCreationTime().equals(dateTime)) {
-                return note;
+        Set <LocalDateTime> temp = notes.keySet();
+        for (LocalDateTime ldt: temp) {
+            if (ldt.equals(dateTime)) {
+                return notes.get(ldt);
             }
         }
         return null;
 
+    }
+    public void addTag(String tag, LocalDateTime creationTime) throws IOException {
+        Note note = notes.get(creationTime);
+        note.setTag(tag);
+        writeToFile();
+
+    }
+    public void delete(Note note) throws IOException {
+        notes.remove(note.creationTime);
+        writeToFile();
     }
 }

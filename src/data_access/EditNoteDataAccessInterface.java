@@ -3,11 +3,11 @@ package data_access;
 
 import entity.Note;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public interface EditNoteDataAccessInterface {
-    public String open(Note note);
-    Note getNoteByCreationTime(String title);
+    Note getNoteByCreationTime(LocalDateTime creationTime);
     ArrayList<Note> getAllNotes();
 
     void saveEdit(Note note);
