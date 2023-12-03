@@ -4,12 +4,13 @@ import entity.Note;
 import entity.NoteFactory;
 import use_case.notes.add_tags.AddTagDataAccessInterface;
 import use_case.notes.create_note.CreateNoteDataAccessInterface;
+import use_case.trash.delete_note.DeleteNoteDataAccessInterface;
 
 import java.io.*;
 import java.time.LocalDateTime;
 import java.util.*;
 
-public class FileNoteDataAccessObject implements CreateNoteDataAccessInterface, EditNoteDataAccessInterface, AddTagDataAccessInterface {
+public class FileNoteDataAccessObject implements CreateNoteDataAccessInterface, EditNoteDataAccessInterface, AddTagDataAccessInterface, DeleteNoteDataAccessInterface {
     private final File notesFile;
     private static final String CSV_FILE_PATH = "notes.csv";
     private final Map<String, Integer> headers = new LinkedHashMap<>();
@@ -98,9 +99,14 @@ public class FileNoteDataAccessObject implements CreateNoteDataAccessInterface, 
         return null;
 
     }
-    public void addTag(String tag, LocalDateTime creationTime) {
+    public void addTag(String tag, LocalDateTime creationTime) throws IOException {
         Note note = notes.get(creationTime);
         note.setTag(tag);
+        writeToFile();
 
+    }
+    public void delete(Note note) throws IOException {
+        notes.remove(note.creationTime);
+        writeToFile();
     }
 }
