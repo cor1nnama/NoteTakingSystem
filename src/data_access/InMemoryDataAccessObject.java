@@ -53,6 +53,7 @@ public class InMemoryDataAccessObject implements EditNoteDataAccessInterface, Ad
 
     @Override
     public void save(Note note) {
+        map.put(note.creationTime, note);
 
     }
 

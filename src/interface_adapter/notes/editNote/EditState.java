@@ -1,11 +1,11 @@
 package interface_adapter.notes.editNote;
 
 import entity.Note;
+import view.EditView;
 
 import java.time.LocalDateTime;
 
 public class EditState {
-    private boolean editing;
     private LocalDateTime creationTime;
 
     private String title;
@@ -14,9 +14,10 @@ public class EditState {
 
     private String editTitleError = null;
 
-    public EditState(boolean editing, LocalDateTime creationTime){
-        this.editing = editing;
+    public EditState(LocalDateTime creationTime, String title, String content){
         this.creationTime = creationTime;
+        this.title = title;
+        this.content = content;
     }
 
     public EditState(){};
@@ -25,13 +26,6 @@ public class EditState {
         return creationTime;
     }
 
-    public boolean getEditing() {
-        return editing;
-    }
-
-    public void setEditing(Boolean editing) {
-        this.editing = editing;
-    }
 
     public void setCreationTime(LocalDateTime creationTime) {
         this.creationTime= creationTime;

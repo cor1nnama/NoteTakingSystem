@@ -1,15 +1,16 @@
 package use_case.notes.create_notebook;
 
 import data_access.FileNotebookDataAccessObject;
+import data_access.NotebookDataAccessInterface;
 import entity.Notebook;
 import entity.NotebookFactory;
 
 public class CreateNotebookInteractor implements CreateNotebookInputBoundary{
-    final FileNotebookDataAccessObject notebookDataAccessObject;
+    final NotebookDataAccessInterface notebookDataAccessObject;
     final CreateNotebookOutputBoundary notebookPresenter;
     final NotebookFactory notebookFactory;
 
-    public CreateNotebookInteractor(FileNotebookDataAccessObject notebookDataAccessObject,
+    public CreateNotebookInteractor(NotebookDataAccessInterface notebookDataAccessObject,
                                     CreateNotebookOutputBoundary createNotebookOutputBoundary,
                                     NotebookFactory notebookFactory){
         this.notebookDataAccessObject = notebookDataAccessObject;
