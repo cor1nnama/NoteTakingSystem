@@ -7,7 +7,7 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 public class EditViewModel extends ViewModel {
-    public static final String SAVE_BUTTON = "Save";
+    public final String SAVE_BUTTON = "Save";
 
 
     private EditState state = new EditState();
