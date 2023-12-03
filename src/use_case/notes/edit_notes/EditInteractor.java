@@ -3,6 +3,7 @@ package use_case.notes.edit_notes;
 import data_access.EditNoteDataAccessInterface;
 import entity.Note;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class EditInteractor implements EditNoteInputBoundary {
@@ -16,25 +17,15 @@ public class EditInteractor implements EditNoteInputBoundary {
 
     @Override
     public void execute(EditInputData editInputData) {
-        Note newNote = editInputData.getNote();
-        Note currNote = editNoteDataAccessInterface.getNoteByCreationTime(newNote.getCreationTime());
+        LocalDateTime creationTime = editInputData.getCreationTime();
+        String title = editInputData.getTitle();
+        String content = editInputData.getContent();
+        Note currNote = editNoteDataAccessInterface.getNoteByCreationTime(creationTime);
         ArrayList<Note> allNotes = editNoteDataAccessInterface.getAllNotes();
         EditOutputData editOutputData = null;
-        int count = 0;
-        for (Note note : allNotes) {
-            if (note.getTitle().equals(newNote.getTitle())) {
-                count = count + 1;
-            }
-        }
-        if (count > 1) {
-            editPresenter.prepareFailView("Title already exists in another note");
-        }
-        else {
-            currNote.setTitle(newNote.getTitle());
-            currNote.setContent(newNote.getContent());
-            editNoteDataAccessInterface.saveEdit(newNote);
-            editPresenter.prepareSuccessView(editOutputData);
-        }
-
+        currNote.setTitle(title);
+        currNote.setContent(content);
+        editNoteDataAccessInterface.saveEdit(currNote);
+        editPresenter.prepareSuccessView(editOutputData);
     }
 }

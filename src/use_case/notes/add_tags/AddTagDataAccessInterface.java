@@ -1,15 +1,11 @@
-package data_access;
-
+package use_case.notes.add_tags;
 
 import entity.Note;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-public interface EditNoteDataAccessInterface {
+public interface AddTagDataAccessInterface {
+    void addTag (String tag, LocalDateTime ldt);
     Note getNoteByCreationTime(LocalDateTime creationTime);
-    ArrayList<Note> getAllNotes();
-
-    void saveEdit(Note note);
-
 }

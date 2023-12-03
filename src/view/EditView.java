@@ -11,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.time.LocalDateTime;
 
 public class EditView extends JPanel implements PropertyChangeListener {
     private EditViewModel editViewModel;
@@ -19,15 +20,14 @@ public class EditView extends JPanel implements PropertyChangeListener {
     public EditView (EditViewModel editViewModel, EditController editController) {
         this.editViewModel = editViewModel;
         this.editController = editController;
-        saveNote = new JButton(EditViewModel.SAVE_BUTTON);
+        saveNote = new JButton(editViewModel.SAVE_BUTTON);
         EditState editState = editViewModel.getState();
-        Note note = editState.getNote();
         setLayout(new BorderLayout());
         setSize(1152, 600);
         JEditorPane editorPane = new JEditorPane();
         JTextField titleText = new JTextField();
-        editorPane.setText(note.getContent());
-        titleText.setText(note.getTitle());
+        editorPane.setText(editState.getContent());
+        titleText.setText(editState.getTitle());
         JScrollPane editorScrollPane = new JScrollPane(editorPane);
         editorScrollPane.setFont(new Font("Arial", Font.PLAIN, 14));
         titleText.setFont(new Font("Arial", Font.BOLD, 20));
@@ -40,9 +40,12 @@ public class EditView extends JPanel implements PropertyChangeListener {
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(saveNote)) {
-                            Note newNote = new Note(titleText.getText(), editViewModel.getState().getNote().getTags());
-                            newNote.setContent(editorPane.getText());
-                            editController.execute(newNote);
+                            String title = titleText.getText();
+                            String content = editorPane.getText();
+                            LocalDateTime creationTime = editState.getCreationTime();
+                            editState.setContent(content);
+                            editState.setTitle(title);
+                            editController.execute(creationTime, title, content);
                         }
                     }
                 }
@@ -52,10 +55,6 @@ public class EditView extends JPanel implements PropertyChangeListener {
     }
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        EditState editState = (EditState) evt.getNewValue();
-        if (editState.getEditTitleError() != null) {
-            JOptionPane.showMessageDialog(this, editState.getEditTitleError());
-        }
     }
 
 }
