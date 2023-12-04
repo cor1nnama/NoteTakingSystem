@@ -3,17 +3,17 @@ package entity;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Map;
 
 public class Notebook {
     // categorize notes into different topic etc.
     public String name;
     private final LocalDateTime creationTime;
-    public ArrayList<Note> notes;
+    public Map<LocalDateTime, String> notes;
 
     public Notebook(String name){
         this.name = name;
         this.creationTime = LocalDateTime.now();
-        this.notes = new ArrayList<Note>();
     }
 
     public String getName() {
@@ -24,11 +24,11 @@ public class Notebook {
         this.name = name;
     }
 
-    public ArrayList<Note> getNotes() {
+    public Map<LocalDateTime, String> getNotes() {
         return notes;
     }
 
-    public void addNote(Note note) { notes.add(note); }
+    public void addNote(Note note) { notes.put(note.creationTime, note.title); }
 
     public LocalDateTime getCreationTime() {
         return creationTime;

@@ -9,6 +9,7 @@ import java.util.Map;
 public class LoginOutputData {
     User user;
     Map<LocalDateTime, String> notebooks;
+
     public LoginOutputData(User user, Map<LocalDateTime, String> notebooks){
         this.notebooks = notebooks;
         this.user = user;

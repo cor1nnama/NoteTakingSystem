@@ -70,30 +70,30 @@ public class NotebookView extends JPanel implements ActionListener, PropertyChan
                 }
             }
         });
-        trash.addActionListener(new ActionListener() {
+        delete.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (e.getSource().equals(trash)) {
+                if (e.getSource().equals(delete)) {
                     //NotebookLibraryState currState = notebookLibraryViewModel.getState();
-                    notebookLibraryController.execute(selectedNotebook, notebookLibraryViewModel.TRASH_BUTTON_LABEL);
+                    notebookLibraryController.execute(selectedNotebook, notebookLibraryViewModel.DELETE_BUTTON_LABEL);
                 }
             }
         });
-        trash.addActionListener(new ActionListener() {
+        edit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (e.getSource().equals(trash)) {
+                if (e.getSource().equals(edit)) {
                     //NotebookLibraryState currState = notebookLibraryViewModel.getState();
-                    notebookLibraryController.execute(selectedNotebook, notebookLibraryViewModel.TRASH_BUTTON_LABEL);
+                    notebookLibraryController.execute(selectedNotebook, notebookLibraryViewModel.EDIT_BUTTON_LABEL);
                 }
             }
         });
-        trash.addActionListener(new ActionListener() {
+        open.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (e.getSource().equals(trash)) {
+                if (e.getSource().equals(open)) {
                     //NotebookLibraryState currState = notebookLibraryViewModel.getState();
-                    notebookLibraryController.execute(selectedNotebook, notebookLibraryViewModel.TRASH_BUTTON_LABEL);
+                    notebookLibraryController.execute(selectedNotebook, notebookLibraryViewModel.OPEN_BUTTON_LABEL);
                 }
             }
         });

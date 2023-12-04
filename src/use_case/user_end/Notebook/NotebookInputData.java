@@ -3,11 +3,14 @@ package use_case.user_end.Notebook;
 import java.time.LocalDateTime;
 
 public class NotebookInputData {
-    private String buttonPressed;
+    private final LocalDateTime selectedNotebook;
+    private final String action;
 
     public NotebookInputData(LocalDateTime buttonPressed, String action) {
-        this.buttonPressed = buttonPressed;
+        this.selectedNotebook = buttonPressed;
+        this.action = action;
     }
 
-    String getButtonPressed() { return buttonPressed; }
+    LocalDateTime getselectedNote() { return selectedNotebook; }
+    String getAction() { return action; }
 }

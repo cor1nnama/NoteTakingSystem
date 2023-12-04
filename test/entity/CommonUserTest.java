@@ -36,7 +36,7 @@ class CommonUserTest {
         CommonUser user = new CommonUser("bgh23", "ssd");
         LocalDateTime ldt = notebook.getCreationTime();
         user.addNotebook(notebook);
-        assertTrue(user.notebooks.contains(ldt));
+        assertTrue(user.notebooks.containsKey(ldt));
         ArrayList <LocalDateTime> nbs = new ArrayList<>();
         nbs.add(ldt);
         assertEquals(nbs, user.notebooks);

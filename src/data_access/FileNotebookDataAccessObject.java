@@ -5,6 +5,7 @@ import entity.NotebookFactory;
 import entity.User;
 
 import java.io.*;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -72,7 +73,7 @@ public class FileNotebookDataAccessObject implements NotebookDataAccessInterface
 
             for (List<Notebook> notebookList : notebookMap.values()) {
                 for (Notebook notebook: notebookList){
-                    String line = String.format(notebook.getName(), notebook.getOwner());
+                    String line = String.format(notebook.getName());
                     writer.write(line);
                     writer.newLine();
                 }
@@ -83,6 +84,10 @@ public class FileNotebookDataAccessObject implements NotebookDataAccessInterface
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public Map<LocalDateTime, String> getNotebook() {
+
     }
 
 

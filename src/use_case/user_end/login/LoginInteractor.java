@@ -21,7 +21,7 @@ public class LoginInteractor implements LoginInputBoundary{
            loginPresenter.prepareFailView("Incorrect password.");
         } else {
             LoginOutputData loginOutputData = new LoginOutputData(userDAO.get(loginInputData.getUsername()),
-                                                                    userDAO.get(loginInputData.getUsername()).getNotebooks());
+                                                                  userDAO.get(loginInputData.getUsername()).getNotebooks());
             loginPresenter.prepareSuccessView(loginOutputData);
         }
     }

@@ -11,13 +11,13 @@ public class CommonUser implements User{
 
     public String username;
     public String password;
-    public ArrayList<LocalDateTime> notebooks;
+    public Map<LocalDateTime, String> notebooks;
     public Trash trash;
 
     public CommonUser(String username, String password){
         this.username = username;
         this.password = password;
-        this.notebooks = new ArrayList<>();
+        this.notebooks = null;
         this.trash = new Trash();
     }
     @Override
@@ -31,12 +31,12 @@ public class CommonUser implements User{
     }
 
     @Override
-    public ArrayList<LocalDateTime> getNotebooks() {
+    public Map<LocalDateTime, String> getNotebooks() {
         return notebooks;
     }
 
     @Override
-    public void setNotebooks(ArrayList<LocalDateTime> notebooks) {
+    public void setNotebooks(Map<LocalDateTime, String> notebooks) {
         this.notebooks = notebooks;
     }
 
@@ -47,6 +47,6 @@ public class CommonUser implements User{
     public String getPassword(){return this.password;}
 
     public void addNotebook(Notebook notebook) {
-        this.notebooks.add(notebook.getCreationTime());
+        this.notebooks.put(notebook.getCreationTime(), notebook.name);
     }
 }
