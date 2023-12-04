@@ -8,12 +8,16 @@ import java.util.Map;
 
 public class NotebookLibraryState {
     private String username = "";
+    private String buttonPressed;
 
     private Map<LocalDateTime, Notebook> userNotebooks;
+
+
 
     public NotebookLibraryState(NotebookLibraryState copy) {
         username = copy.username;
         userNotebooks = copy.userNotebooks;
+        buttonPressed = copy.buttonPressed;
     }
 
     // Because of the previous copy constructor, the default constructor must be explicit.
@@ -23,6 +27,7 @@ public class NotebookLibraryState {
         return username;
     }
     public void setUsername(String username) { this.username = username; }
+    public String getButtonPressed() { return buttonPressed; }
 
     public Map<LocalDateTime, Notebook> getUserNotebooks() {
         return userNotebooks;

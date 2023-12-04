@@ -29,6 +29,7 @@ public class NotebookUseCaseFactory {
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Error reading user data file");
         }
+        return null;
     }
 
     private static NotebookLibraryController createNotebookUseCase(ViewManagerModel viewManagerModel,
@@ -38,6 +39,7 @@ public class NotebookUseCaseFactory {
 
         NotebookOutputBoundary notebookOutputBoundary = new NotebookLibraryPresenter(viewManagerModel, noteLibraryViewModel, notebookLibraryViewModel);
         NotebookInputBoundary notebookInteractor = new NotebookInteractor(notebookUserDataAccessInterface, notebookOutputBoundary);
+        return new NotebookLibraryController(notebookInteractor);
     }
 
 }
