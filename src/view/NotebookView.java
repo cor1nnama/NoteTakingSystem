@@ -13,12 +13,14 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Map;
 
 public class NotebookView extends JPanel implements ActionListener, PropertyChangeListener {
 
     public final String viewName = "notebook library";
     private String username;
     private final NotebookLibraryViewModel notebookViewModel;
+    private LocalDateTime selectedNotebook;
     final JButton trash;
     final JButton delete;
     final JButton edit;
@@ -36,7 +38,20 @@ public class NotebookView extends JPanel implements ActionListener, PropertyChan
         JPanel notebookButtons = createNotebookButtons();
         JScrollPane notebookLibScroll = new JScrollPane();
 
+        for (Component button : notebookButtons.getComponents()) {
+            JButton currButt = (JButton) button;
+            currButt.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    NotebookLibraryState currState = notebookLibraryViewModel.getState();
+                    selectedNotebook = currState.getNBCreationTime(currButt.getText());
+
+                }
+            });
+        }
+
         JPanel bottomButtons = new JPanel();
+        bottomButtons.setAlignmentY(Component.BOTTOM_ALIGNMENT);
         trash = new JButton(notebookLibraryViewModel.TRASH_BUTTON_LABEL);
         bottomButtons.add(trash);
         delete = new JButton(notebookLibraryViewModel.DELETE_BUTTON_LABEL);
@@ -51,7 +66,34 @@ public class NotebookView extends JPanel implements ActionListener, PropertyChan
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource().equals(trash)) {
                     //NotebookLibraryState currState = notebookLibraryViewModel.getState();
-                    notebookLibraryController.execute(notebookLibraryViewModel.TRASH_BUTTON_LABEL);
+                    notebookLibraryController.execute(selectedNotebook, notebookLibraryViewModel.TRASH_BUTTON_LABEL);
+                }
+            }
+        });
+        trash.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (e.getSource().equals(trash)) {
+                    //NotebookLibraryState currState = notebookLibraryViewModel.getState();
+                    notebookLibraryController.execute(selectedNotebook, notebookLibraryViewModel.TRASH_BUTTON_LABEL);
+                }
+            }
+        });
+        trash.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (e.getSource().equals(trash)) {
+                    //NotebookLibraryState currState = notebookLibraryViewModel.getState();
+                    notebookLibraryController.execute(selectedNotebook, notebookLibraryViewModel.TRASH_BUTTON_LABEL);
+                }
+            }
+        });
+        trash.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (e.getSource().equals(trash)) {
+                    //NotebookLibraryState currState = notebookLibraryViewModel.getState();
+                    notebookLibraryController.execute(selectedNotebook, notebookLibraryViewModel.TRASH_BUTTON_LABEL);
                 }
             }
         });
@@ -61,11 +103,12 @@ public class NotebookView extends JPanel implements ActionListener, PropertyChan
     }
 
     private JPanel createNotebookButtons() {
-        ArrayList<Note> notebooks = notebookViewModel.getState().getUserNotebooks();
-        for (notebook : ;) {
-
-
+        JPanel buttons = new JPanel();
+        Map<LocalDateTime, String> notebooks = notebookViewModel.getState().getUserNotebooks();
+        for (Map.Entry<LocalDateTime, String> entry : notebooks.entrySet()) {
+            buttons.add(new JButton(entry.getValue()));
         }
+        return buttons;
     }
 
     @Override

@@ -4,13 +4,14 @@ import entity.Notebook;
 
 import javax.swing.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Map;
 
 public class NotebookLibraryState {
     private String username = "";
     private String buttonPressed;
 
-    private Map<LocalDateTime, Notebook> userNotebooks;
+    private Map<LocalDateTime, String> userNotebooks;
 
 
 
@@ -28,11 +29,19 @@ public class NotebookLibraryState {
     }
     public void setUsername(String username) { this.username = username; }
     public String getButtonPressed() { return buttonPressed; }
+    public LocalDateTime getNBCreationTime(String title) {
+        return userNotebooks.entrySet()
+                .stream()
+                .filter(entry -> entry.getValue().equals(title))
+                .map(Map.Entry::getKey)
+                .findFirst()
+                .orElse(null);
+    }
 
-    public Map<LocalDateTime, Notebook> getUserNotebooks() {
+    public Map<LocalDateTime, String> getUserNotebooks() {
         return userNotebooks;
     }
-    public void setUserNotebooks(Map<LocalDateTime, Notebook> userNotebooks) {
+    public void setUserNotebooks(Map<LocalDateTime, String> userNotebooks) {
         this.userNotebooks = userNotebooks;
     }
 

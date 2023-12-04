@@ -31,6 +31,16 @@ public class CommonUser implements User{
     }
 
     @Override
+    public ArrayList<LocalDateTime> getNotebooks() {
+        return notebooks;
+    }
+
+    @Override
+    public void setNotebooks(ArrayList<LocalDateTime> notebooks) {
+        this.notebooks = notebooks;
+    }
+
+    @Override
     public String getUsername(){return this.username;}
 
     @Override

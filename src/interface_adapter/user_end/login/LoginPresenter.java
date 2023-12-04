@@ -20,10 +20,11 @@ public class LoginPresenter implements LoginOutputBoundary {
     }
 
     @Override
-    public void prepareSuccessView(LoginOutputData user) {
+    public void prepareSuccessView(LoginOutputData LOD) {
         //LoginState loginState = loginViewModel.getState();
         NotebookLibraryState notebookLibraryState = notebookLibraryViewModel.getState();
-        notebookLibraryState.setUsername(.getUsername());
+        notebookLibraryState.setUserNotebooks(LOD.getNotebooks());
+        notebookLibraryState.setUsername(LOD.getUser().getUsername());
         this.notebookLibraryViewModel.setState(notebookLibraryState);
         notebookLibraryViewModel.firePropertyChanged();
         viewManagerModel.setActiveView(notebookLibraryViewModel.getViewName());
