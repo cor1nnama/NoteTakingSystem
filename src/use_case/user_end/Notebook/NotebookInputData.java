@@ -1,2 +1,4 @@
-package use_case.user_end.Notebook;public class NotebookInputData {
+package use_case.user_end.Notebook;
+public class NotebookInputData {
+    private bool
 }
