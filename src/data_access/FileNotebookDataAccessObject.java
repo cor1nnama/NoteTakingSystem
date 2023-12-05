@@ -16,7 +16,7 @@ public class FileNotebookDataAccessObject implements NotebookDataAccessInterface
 
     private final Map<String, Integer> headers = new LinkedHashMap<>();
 
-    private final Map<String, List<Notebook>> notebookMap = new HashMap<>();
+    private final Map<LocalDateTime, Notebook> notebooks = new HashMap<>();
 
     private NotebookFactory notebookFactory;
 
@@ -64,6 +64,12 @@ public class FileNotebookDataAccessObject implements NotebookDataAccessInterface
         this.save();
     }
 
+    @Override
+    public Map<LocalDateTime, String> getNotesInNotebook(LocalDateTime notebookID) {
+        Notebook notebook = notebooks.get(notebookID);
+        return notebook.getNotes();
+    }
+
     private void save() {
         BufferedWriter writer;
         try {
@@ -86,8 +92,8 @@ public class FileNotebookDataAccessObject implements NotebookDataAccessInterface
         }
     }
 
-    public Map<LocalDateTime, String> getNotebook() {
-
+    public Map<LocalDateTime, String> getNotebook(LocalDateTime creationTime) {
+        return notebooks.get(creationTime);
     }
 
 
