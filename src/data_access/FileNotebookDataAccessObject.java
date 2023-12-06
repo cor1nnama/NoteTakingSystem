@@ -87,15 +87,11 @@ public class FileNotebookDataAccessObject implements NotebookDataAccessInterface
     }
 
     public Map<LocalDateTime, String> getNotebook() {
-
+        return null;
     }
 
 
-    /**
-     * Return whether a user exists with username identifier.
-     * @param identifier the username to check.
-     * @return whether a user exists with username identifier
-     */
+
     @Override
     public boolean existsByName(String notebookName) {
         return notebookMap.containsKey(notebookName);

@@ -33,6 +33,11 @@ public class FileNoteDataAccessObject implements CreateNoteDataAccessInterface, 
         this.writeToFile();
     }
 
+    @Override
+    public void save(Note note) {
+
+    }
+
     //add catches for errors for both file methods
     @Override
     public void writeToFile() throws IOException {
