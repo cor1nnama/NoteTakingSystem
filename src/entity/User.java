@@ -10,6 +10,8 @@ public interface User{
     void setPassword(String newPassword);
     Map<LocalDateTime, String> getNotebooks();
     void setNotebooks(Map<LocalDateTime, String> notebooks);
+    public void removeNotebook(LocalDateTime notebookID);
     String getUsername();
     String getPassword();
+    public void renameNotebook(LocalDateTime notebookID);
 }

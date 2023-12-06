@@ -2,66 +2,43 @@ package data_access;
 
 import entity.Notebook;
 import entity.NotebookFactory;
-import entity.User;
 
 import java.io.*;
 import java.time.LocalDateTime;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.List;
 
 public class FileNotebookDataAccessObject implements NotebookDataAccessInterface{
-    private final File csvFile;
+    private final File notebooksFile;
 
     private final Map<String, Integer> headers = new LinkedHashMap<>();
 
-    private final Map<LocalDateTime, Notebook> notebooks = new HashMap<>();
+    private final Map<LocalDateTime, Notebook> notebooks = new LinkedHashMap<>();
 
     private NotebookFactory notebookFactory;
+    private FileOutputStream fsOut;
+    private FileInputStream fsIn;
+    private ObjectOutputStream osOut;
+    private ObjectInputStream osIn;
 
 
-    public FileNotebookDataAccessObject(String csvPath, NotebookFactory notebookFactory) throws IOException {
+    public FileNotebookDataAccessObject(String notebooksPath, NotebookFactory notebookFactory) throws IOException {
         this.notebookFactory = notebookFactory;
+        notebooksFile = new File(notebooksPath);
+        fsOut = new FileOutputStream(notebooksPath);
+        osOut = new ObjectOutputStream(fsOut);
 
-        csvFile = new File(csvPath);
-        headers.put("username", 0);
-        headers.put("notebook", 1);
-
-        if (csvFile.length() == 0) {
-            save();
-        } else {
-
-            try (BufferedReader reader = new BufferedReader(new FileReader(csvFile))) {
-                String header = reader.readLine();
-
-                assert header.equals("username,notebook");
-
-/**                String row;
-                while ((row = reader.readLine()) != null) {
-                    String[] col = row.split(",");
-                    String username = String.valueOf(col[headers.get("username")]);
-                    String notebookName = String.valueOf(col[headers.get("notebook")]);
-                    if (userDAO.existsByName(username)){
-                        for (String username1:headers.keySet()){
-                            Map<String, User> accounts = userDAO.getUser(username1);
-                        }
-                        User user = accounts.get(username);
-                        Notebook notebook = notebookFactory.create(notebookName, user.getUsername());
-                        notebookMap.put(notebookName, notebook);
-                    }
-                }
- */
-            }
-        }
     }
 
     @Override
-    public void save(String username, Notebook notebook) {
-        List<Notebook> notebookList = notebookMap.get(username);
-        notebookList.add(notebook);
-        notebookMap.put(username, notebookList);
-        this.save();
+    public boolean existsByCreationTime(LocalDateTime ldt) {
+        return false;
+    }
+
+    @Override
+    public void save(LocalDateTime ldt, Notebook notebook) throws IOException {
+        notebooks.put(ldt, notebook);
+        this.writeToFile();
     }
 
     @Override
@@ -70,40 +47,54 @@ public class FileNotebookDataAccessObject implements NotebookDataAccessInterface
         return notebook.getNotes();
     }
 
-    private void save() {
-        BufferedWriter writer;
-        try {
-            writer = new BufferedWriter(new FileWriter(csvFile));
-            writer.write(String.join(",", headers.keySet()));
-            writer.newLine();
+    //add catches for errors for both file methods
+    @Override
+    public void writeToFile() throws IOException {
+        new FileOutputStream(notebooksFile).close(); //Clears file for fresh data
+        fsOut = new FileOutputStream(notebooksFile);
+        osOut = new ObjectOutputStream(fsOut);
 
-            for (List<Notebook> notebookList : notebookMap.values()) {
-                for (Notebook notebook: notebookList){
-                    String line = String.format(notebook.getName());
-                    writer.write(line);
-                    writer.newLine();
-                }
-            }
-
-            writer.close();
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        for (LocalDateTime ldt : notebooks.keySet()) {
+            osOut.writeObject(notebooks.get(ldt));
         }
+
+        osOut.close();
+        fsOut.close();
     }
 
-    public Map<LocalDateTime, String> getNotebook(LocalDateTime creationTime) {
+    public void readFromFile() throws IOException {
+        fsIn = new FileInputStream(notebooksFile);
+        osIn = new ObjectInputStream(fsIn);
+
+        try {
+            while (true) { //alternatively (osIn.available() > 0)
+                Notebook notebookToAdd = (Notebook) osIn.readObject();
+                notebooks.put(notebookToAdd.getCreationTime(), notebookToAdd);
+            }
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (EOFException ignored) {
+        }
+
+        osIn.close();
+        fsIn.close();
+
+    }
+
+    public Notebook getNotebook(LocalDateTime creationTime) {
         return notebooks.get(creationTime);
     }
+    public void deleteNotebook(LocalDateTime creationTime) { notebooks.remove(creationTime); }
 
-
-    /**
-     * Return whether a user exists with username identifier.
-     * @param identifier the username to check.
-     * @return whether a user exists with username identifier
-     */
     @Override
-    public boolean existsByName(String notebookName) {
-        return notebookMap.containsKey(notebookName);
+    public void renameNotebook(LocalDateTime notebookID, String newTitle) {
+        notebooks.get(notebookID).name = newTitle;
+    }
+
+
+
+    @Override
+    public boolean existsByLDT(LocalDateTime ldt) {
+        return notebooks.containsKey(ldt);
     }
 }

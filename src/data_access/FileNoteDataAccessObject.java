@@ -28,14 +28,17 @@ public class FileNoteDataAccessObject implements CreateNoteDataAccessInterface, 
     }
 
     @Override
-    public void saveNote(Note note) throws IOException {
+    public void save(Note note) throws IOException {
         notes.put(note.creationTime, note);
         this.writeToFile();
     }
 
+
     //add catches for errors for both file methods
     @Override
     public void writeToFile() throws IOException {
+        new FileOutputStream(notesFile).close(); //Clears file for fresh data
+
         fsOut = new FileOutputStream(notesFile);
         osOut = new ObjectOutputStream(fsOut);
 

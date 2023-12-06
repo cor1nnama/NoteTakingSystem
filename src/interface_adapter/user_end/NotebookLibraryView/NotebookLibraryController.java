@@ -13,8 +13,8 @@ public class NotebookLibraryController {
         this.notebookUseCaseInteractor = notebookUseCaseInteractor;
     }
 
-    public void execute(LocalDateTime selectedNotebook, String action) {
-        NotebookInputData notebookInputData = new NotebookInputData(selectedNotebook, action);
+    public void execute(LocalDateTime selectedNotebook, String action, String currUser) {
+        NotebookInputData notebookInputData = new NotebookInputData(selectedNotebook, action, currUser);
 
         notebookUseCaseInteractor.execute(notebookInputData);
     }

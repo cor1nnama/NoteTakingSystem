@@ -1,10 +1,12 @@
 package use_case.user_end.Notebook;
 
+import entity.User;
+
 import java.time.LocalDateTime;
 import java.util.Map;
 
 public interface NotebookUserDataAccessInterface {
 
 
-    Map<LocalDateTime, String> getNotesInNotebook(LocalDateTime localDateTime);
+    User get(String username);
 }

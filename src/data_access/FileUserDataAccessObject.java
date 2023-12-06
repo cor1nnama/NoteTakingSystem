@@ -1,5 +1,6 @@
 package data_access;
 
+import entity.Note;
 import entity.User;
 import entity.UserFactory;
 import use_case.user_end.Notebook.NotebookUserDataAccessInterface;
@@ -12,45 +13,24 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class FileUserDataAccessObject implements UserSignupDataAccessInterface, LoginUserDataAccessInterface, NotebookUserDataAccessInterface, LogoutUserDataAccessInterface {
-    private final File csvFile;
+public class FileUserDataAccessObject implements UserSignupDataAccessInterface, LoginUserDataAccessInterface, NotebookUserDataAccessInterface {
+    private final File usersFile;
 
     private final Map<String, Integer> headers = new LinkedHashMap<>();
 
     private final Map<String, User> accounts = new HashMap<>();
 
     private UserFactory userFactory;
+    private FileOutputStream fsOut;
+    private FileInputStream fsIn;
+    private ObjectOutputStream osOut;
+    private ObjectInputStream osIn;
 
-    public FileUserDataAccessObject(String csvPath, UserFactory userFactory) throws IOException {
+    public FileUserDataAccessObject(String usersPath, UserFactory userFactory) throws IOException {
         this.userFactory = userFactory;
-
-        csvFile = new File(csvPath);
-        headers.put("username", 0);
-        headers.put("password", 1);
-        headers.put("creation_time", 2);
-
-        if (csvFile.length() == 0) {
-            save();
-        } else {
-
-            try (BufferedReader reader = new BufferedReader(new FileReader(csvFile))) {
-                String header = reader.readLine();
-
-                // For later: clean this up by creating a new Exception subclass and handling it in the UI.
-                assert header.equals("username,password,creation_time");
-
-                String row;
-                while ((row = reader.readLine()) != null) {
-                    String[] col = row.split(",");
-                    String username = String.valueOf(col[headers.get("username")]);
-                    String password = String.valueOf(col[headers.get("password")]);
-                    String creationTimeText = String.valueOf(col[headers.get("creation_time")]);
-                    LocalDateTime ldt = LocalDateTime.parse(creationTimeText);
-                    User user = userFactory.create(username, password, ldt);
-                    accounts.put(username, user);
-                }
-            }
-        }
+        usersFile = new File(usersPath);
+        fsOut = new FileOutputStream(usersPath);
+        osOut = new ObjectOutputStream(fsOut);
     }
 
     @Override
@@ -59,9 +39,9 @@ public class FileUserDataAccessObject implements UserSignupDataAccessInterface, 
     }
 
     @Override
-    public void save(User user) {
+    public void save(User user) throws IOException {
         accounts.put(user.getUsername(), user);
-        this.save();
+        this.writeToFile();
     }
 
     @Override
@@ -69,30 +49,44 @@ public class FileUserDataAccessObject implements UserSignupDataAccessInterface, 
         return accounts.get(username);
     }
 
-    private void save() {
-        BufferedWriter writer;
-        try {
-            writer = new BufferedWriter(new FileWriter(csvFile));
-            writer.write(String.join(",", headers.keySet()));
-            writer.newLine();
+    public void writeToFile() throws IOException {
+        new FileOutputStream(usersFile).close(); //Clears file for fresh data
 
-            for (User user : accounts.values()) {
-                String line = String.format("%s,%s,%s", user.getUsername(), user.getPassword());
-                writer.write(line);
-                writer.newLine();
-            }
+        fsOut = new FileOutputStream(usersFile);
+        osOut = new ObjectOutputStream(fsOut);
 
-            writer.close();
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        for (String username : accounts.keySet()) {
+            osOut.writeObject(accounts.get(username));
         }
+
+        osOut.close();
+        fsOut.close();
     }
+
+    public void readFromFile() throws IOException {
+        fsIn = new FileInputStream(usersFile);
+        osIn = new ObjectInputStream(fsIn);
+
+        try {
+            while (true) { //alternatively (osIn.available() > 0)
+                User userToAdd = (User) osIn.readObject();
+                accounts.put(userToAdd.getUsername(), userToAdd);
+            }
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (EOFException ignored) {
+        }
+
+        osIn.close();
+        fsIn.close();
+
+    }
+
+
 
     public boolean authenticateUser(String providedUsername, String providedPassword){
         User user = accounts.get(providedUsername);
         return user.getPassword().equals(providedPassword);
     }
-
 
 }

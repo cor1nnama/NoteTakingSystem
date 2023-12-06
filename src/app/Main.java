@@ -73,7 +73,7 @@ public class Main {
         LoginView loginView = LoginUseCaseFactory.create(viewManagerModel, loginViewModel, notebookLibraryViewModel, userDataAccessObject);
         views.add(loginView, loginView.viewName);
 
-        NotebookView notebookView = NotebookUseCaseFactory.create(viewManagerModel, notebookLibraryViewModel, noteLibraryViewModel, userDataAccessObject);
+        NotebookView notebookView = NotebookUseCaseFactory.create(viewManagerModel, notebookLibraryViewModel, noteLibraryViewModel, userDataAccessObject, notebookDataAccessObject);
         views.add(notebookView, notebookView.viewName);
 
         NoteView noteView = NoteUseCaseFactory.create(viewManagerModel, notebookLibraryViewModel, editViewModel, userDataAccessObject);

@@ -1,6 +1,8 @@
 package interface_adapter.user_end.NotebookLibraryView;
 
 import interface_adapter.ViewManagerModel;
+import interface_adapter.user_end.NoteLibraryView.NoteLibraryState;
+import interface_adapter.user_end.NoteLibraryView.NoteLibraryViewModel;
 import use_case.user_end.Notebook.NotebookOutputBoundary;
 import use_case.user_end.Notebook.NotebookOutputData;
 
@@ -20,11 +22,16 @@ public class NotebookLibraryPresenter implements NotebookOutputBoundary {
         // On success switch to notes view
 
         NoteLibraryState noteLibraryState = noteLibraryViewModel.getState();
-        noteLibraryState.setNotes(notes);
-        this.noteLibraryViewModel.setState(noteState);
+        noteLibraryState.setNotes(notes.getNotes());
+        this.noteLibraryViewModel.setState(noteLibraryState);
         this.noteLibraryViewModel.firePropertyChanged();
 
         this.viewManagerModel.setActiveView(noteLibraryViewModel.getViewName());
+        this.viewManagerModel.firePropertyChanged();
+    }
+
+    public void reloadView() {
+        //Updates with new data
         this.viewManagerModel.firePropertyChanged();
     }
 
