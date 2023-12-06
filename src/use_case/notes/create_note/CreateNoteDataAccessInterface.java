@@ -6,10 +6,10 @@ import java.io.IOException;
 
 public interface CreateNoteDataAccessInterface {
 
-    void save(Note note);
+    void save(Note note) throws IOException;
     void writeToFile() throws IOException;
     void readFromFile() throws IOException;
-    void saveNote(Note note) throws IOException;
+
 
 
 

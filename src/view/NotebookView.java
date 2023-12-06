@@ -65,8 +65,8 @@ public class NotebookView extends JPanel implements ActionListener, PropertyChan
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource().equals(trash)) {
-                    //NotebookLibraryState currState = notebookLibraryViewModel.getState();
-                    notebookLibraryController.execute(selectedNotebook, notebookLibraryViewModel.TRASH_BUTTON_LABEL);
+                    NotebookLibraryState currState = notebookLibraryViewModel.getState();
+                    notebookLibraryController.execute(selectedNotebook, notebookLibraryViewModel.TRASH_BUTTON_LABEL, currState.getUsername());
                 }
             }
         });
@@ -74,8 +74,8 @@ public class NotebookView extends JPanel implements ActionListener, PropertyChan
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource().equals(delete)) {
-                    //NotebookLibraryState currState = notebookLibraryViewModel.getState();
-                    notebookLibraryController.execute(selectedNotebook, notebookLibraryViewModel.DELETE_BUTTON_LABEL);
+                    NotebookLibraryState currState = notebookLibraryViewModel.getState();
+                    notebookLibraryController.execute(selectedNotebook, notebookLibraryViewModel.DELETE_BUTTON_LABEL, currState.getUsername());
                 }
             }
         });
@@ -83,8 +83,8 @@ public class NotebookView extends JPanel implements ActionListener, PropertyChan
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource().equals(edit)) {
-                    //NotebookLibraryState currState = notebookLibraryViewModel.getState();
-                    notebookLibraryController.execute(selectedNotebook, notebookLibraryViewModel.EDIT_BUTTON_LABEL);
+                    NotebookLibraryState currState = notebookLibraryViewModel.getState();
+                    notebookLibraryController.execute(selectedNotebook, notebookLibraryViewModel.EDIT_BUTTON_LABEL, currState.getUsername());
                 }
             }
         });
@@ -92,8 +92,8 @@ public class NotebookView extends JPanel implements ActionListener, PropertyChan
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource().equals(open)) {
-                    //NotebookLibraryState currState = notebookLibraryViewModel.getState();
-                    notebookLibraryController.execute(selectedNotebook, notebookLibraryViewModel.OPEN_BUTTON_LABEL);
+                    NotebookLibraryState currState = notebookLibraryViewModel.getState();
+                    notebookLibraryController.execute(selectedNotebook, notebookLibraryViewModel.OPEN_BUTTON_LABEL, currState.getUsername());
                 }
             }
         });

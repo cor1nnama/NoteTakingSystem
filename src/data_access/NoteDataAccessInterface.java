@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Map;
 
-public interface NotebookDataAccessInterface {
+public interface NoteDataAccessInterface {
     public boolean existsByLDT(LocalDateTime ldt);
 
     void save(LocalDateTime ldt, Notebook notebook) throws IOException;

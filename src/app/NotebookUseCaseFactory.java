@@ -1,6 +1,8 @@
 package app;
 
+import data_access.NotebookDataAccessInterface;
 import interface_adapter.ViewManagerModel;
+import interface_adapter.user_end.NoteLibraryView.NoteLibraryViewModel;
 import interface_adapter.user_end.NotebookLibraryView.NotebookLibraryController;
 import interface_adapter.user_end.NotebookLibraryView.NotebookLibraryPresenter;
 import interface_adapter.user_end.NotebookLibraryView.NotebookLibraryViewModel;
@@ -21,10 +23,12 @@ public class NotebookUseCaseFactory {
     public static NotebookView create(ViewManagerModel viewManagerModel,
                                       NotebookLibraryViewModel notebookLibraryViewModel,
                                       NoteLibraryViewModel noteLibraryViewModel,
-                                      NotebookUserDataAccessInterface notebookUserDataAccessInterface) {
+                                      NotebookUserDataAccessInterface notebookUserDataAccessInterface,
+                                      NotebookDataAccessInterface notebookDataAccessInterface) {
 
         try {
-            NotebookLibraryController notebookLibraryController = createNotebookUseCase(viewManagerModel, notebookLibraryViewModel, noteLibraryViewModel, notebookUserDataAccessInterface);
+            NotebookLibraryController notebookLibraryController = createNotebookUseCase(viewManagerModel, notebookLibraryViewModel, noteLibraryViewModel, notebookUserDataAccessInterface,
+                    notebookDataAccessInterface);
             return new NotebookView(notebookLibraryViewModel, notebookLibraryController);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Error reading user data file");
@@ -35,10 +39,11 @@ public class NotebookUseCaseFactory {
     private static NotebookLibraryController createNotebookUseCase(ViewManagerModel viewManagerModel,
                                                                    NotebookLibraryViewModel notebookLibraryViewModel,
                                                                    NoteLibraryViewModel noteLibraryViewModel,
-                                                                   NotebookUserDataAccessInterface notebookUserDataAccessInterface) {
+                                                                   NotebookUserDataAccessInterface notebookUserDataAccessInterface,
+                                                                   NotebookDataAccessInterface notebookDataAccessInterface) {
 
         NotebookOutputBoundary notebookOutputBoundary = new NotebookLibraryPresenter(viewManagerModel, noteLibraryViewModel, notebookLibraryViewModel);
-        NotebookInputBoundary notebookInteractor = new NotebookInteractor(notebookUserDataAccessInterface, notebookOutputBoundary);
+        NotebookInputBoundary notebookInteractor = new NotebookInteractor(notebookDataAccessInterface, notebookUserDataAccessInterface, notebookOutputBoundary);
         return new NotebookLibraryController(notebookInteractor);
     }
 

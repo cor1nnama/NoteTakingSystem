@@ -46,7 +46,16 @@ public class CommonUser implements User{
     @Override
     public String getPassword(){return this.password;}
 
+    @Override
+    public void renameNotebook(LocalDateTime notebookID) {
+
+    }
+
     public void addNotebook(Notebook notebook) {
         this.notebooks.put(notebook.getCreationTime(), notebook.name);
+    }
+
+    public void removeNotebook(LocalDateTime notebookID) {
+        notebooks.remove(notebookID);
     }
 }
