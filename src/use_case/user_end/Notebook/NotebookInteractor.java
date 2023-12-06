@@ -20,10 +20,9 @@ public class NotebookInteractor implements NotebookInputBoundary {
     public void execute(NotebookInputData notebookInputData) {
         String action = notebookInputData.getAction();
         if (action.equals(OPEN)) {
-            Map<LocalDateTime, String> notes;
-            //Notebook currNB = notebookDAO.
-            for (note : notebookInputData.getselectedNote())
-            NotebookOutputData notebookOutputData = new NotebookOutputData(notebookInputData.getselectedNote());
+            Map<LocalDateTime, String> notes = notebookDAO.getNotesInNotebook(notebookInputData.getselectedNotebook());
+            NotebookOutputData notebookOutputData = new NotebookOutputData(notes);
+            notebookPresenter.prepareSuccessView(notebookOutputData);
         } else if (action.equals(TRASH)) {
 
         } else if (action.equals(EDIT)) {
@@ -32,5 +31,6 @@ public class NotebookInteractor implements NotebookInputBoundary {
 
         }
 
+        }
     }
 }

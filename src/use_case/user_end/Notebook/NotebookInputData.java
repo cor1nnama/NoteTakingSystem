@@ -11,6 +11,6 @@ public class NotebookInputData {
         this.action = action;
     }
 
-    LocalDateTime getselectedNote() { return selectedNotebook; }
+    LocalDateTime getselectedNotebook() { return selectedNotebook; }
     String getAction() { return action; }
 }
