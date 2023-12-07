@@ -5,13 +5,14 @@ import entity.Notebook;
 import javax.swing.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 public class NotebookLibraryState {
     private String username = "";
     private String buttonPressed;
 
-    private Map<LocalDateTime, String> userNotebooks;
+    private Map<LocalDateTime, String> userNotebooks = new HashMap<>();
 
 
 

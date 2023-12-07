@@ -11,6 +11,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.io.IOException;
 
 import interface_adapter.user_end.signup.SignupViewModel;
 
@@ -129,7 +130,11 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
             String username = signupViewModel.getState().getUsername();
             String password = signupViewModel.getState().getPassword();
             String repeatPassword = signupViewModel.getState().getRepeatPassword();
-            signupController.execute(username, password, repeatPassword);
+            try {
+                signupController.execute(username, password, repeatPassword);
+            } catch (IOException e) {
+                JOptionPane.showMessageDialog(null, "Sighup Error");
+            }
         }
     }
 

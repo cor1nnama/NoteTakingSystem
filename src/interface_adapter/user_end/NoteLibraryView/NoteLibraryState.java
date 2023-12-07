@@ -2,13 +2,14 @@ package interface_adapter.user_end.NoteLibraryView;
 
 import javax.swing.*;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.Map;
 
 public class NoteLibraryState {
     private LocalDateTime notebook;
     private String buttonPressed;
 
-    private Map<LocalDateTime, String> userNotes;
+    private Map<LocalDateTime, String> userNotes = new HashMap<>();
 
 
 

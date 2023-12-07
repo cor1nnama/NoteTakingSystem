@@ -2,6 +2,7 @@ package use_case.notes.add_tags;
 
 import entity.Note;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -16,7 +17,7 @@ public class AddTagInteractor implements AddTagInputBoundary {
     }
 
     @Override
-    public void execute(AddTagInputData addTagNoteInputData) {
+    public void execute(AddTagInputData addTagNoteInputData) throws IOException {
         String tag = addTagNoteInputData.getTag();
         LocalDateTime creationTime = addTagNoteInputData.getCreationTime();
         Note note = addTagDataAccessInterface.getNoteByCreationTime(creationTime);

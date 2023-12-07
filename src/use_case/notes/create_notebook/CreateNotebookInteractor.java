@@ -5,6 +5,8 @@ import data_access.NotebookDataAccessInterface;
 import entity.Notebook;
 import entity.NotebookFactory;
 
+import java.io.IOException;
+
 public class CreateNotebookInteractor implements CreateNotebookInputBoundary{
     final NotebookDataAccessInterface notebookDataAccessObject;
     final CreateNotebookOutputBoundary notebookPresenter;
@@ -20,12 +22,12 @@ public class CreateNotebookInteractor implements CreateNotebookInputBoundary{
 
 
     @Override
-    public void execute(CreateNotebookInputData createNotebookInputData) {
+    public void execute(CreateNotebookInputData createNotebookInputData) throws IOException {
         if(notebookDataAccessObject.existsByName(createNotebookInputData.getNotebookName())){
             notebookPresenter.prepareFailView("Notebook already exists.");
         } else{
-            Notebook notebook = notebookFactory.create(createNotebookInputData.notebookName, createNotebookInputData.owner);
-            notebookDataAccessObject.save(notebook);
+            Notebook notebook = notebookFactory.create(createNotebookInputData.getNotebookName());
+            notebookDataAccessObject.save(notebook.getCreationTime(), notebook);
             CreateNotebookOutputData createNotebookOutputData = new CreateNotebookOutputData(notebook.getName(), false);
             notebookPresenter.prepareSuccessView(createNotebookOutputData);
         }

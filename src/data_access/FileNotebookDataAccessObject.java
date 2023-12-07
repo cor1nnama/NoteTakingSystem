@@ -30,11 +30,6 @@ public class FileNotebookDataAccessObject implements NotebookDataAccessInterface
 
     }
 
-    //Remove?
-    public boolean existsByCreationTime(LocalDateTime ldt) {
-        return false;
-    }
-
     @Override
     public void save(LocalDateTime ldt, Notebook notebook) throws IOException {
         notebooks.put(ldt, notebook);
@@ -91,6 +86,15 @@ public class FileNotebookDataAccessObject implements NotebookDataAccessInterface
         notebooks.get(notebookID).name = newTitle;
     }
 
+    @Override
+    public boolean existsByName(String notebookName) {
+        for (LocalDateTime ldt : notebooks.keySet()) {
+            if (notebooks.get(ldt).name.equals(notebookName)) {
+                return false;
+            }
+        }
+        return true;
+    }
 
 
     @Override

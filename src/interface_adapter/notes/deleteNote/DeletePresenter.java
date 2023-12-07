@@ -22,4 +22,9 @@ public class DeletePresenter implements DeleteNoteOutputBoundary {
         viewManagerModel.firePropertyChanged();
 
     }
+
+    @Override
+    public void prepareFailView(String error) {
+
+    }
 }

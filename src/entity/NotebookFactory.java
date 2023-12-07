@@ -1,5 +1,5 @@
 package entity;
 
 public class NotebookFactory {
-    public Notebook create(String notebookName, String username){return new Notebook(notebookName);}
+    public Notebook create(String notebookName){return new Notebook(notebookName);}
 }

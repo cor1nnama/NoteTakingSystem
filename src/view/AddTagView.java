@@ -11,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.io.IOException;
 import java.time.LocalDateTime;
 
 
@@ -37,7 +38,11 @@ public class AddTagView extends JPanel implements PropertyChangeListener {
                             LocalDateTime creationTime = state.getCreationTime();
                             state.setTag(tag);
 
-                            addTagController.execute(tag, creationTime);
+                            try {
+                                addTagController.execute(tag, creationTime);
+                            } catch (IOException ex) {
+                                JOptionPane.showMessageDialog(null, "Error while adding tag");
+                            }
                         }
 
                     }

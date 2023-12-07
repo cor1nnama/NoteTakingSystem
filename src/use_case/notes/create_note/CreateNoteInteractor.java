@@ -6,6 +6,8 @@ import entity.Note;
 import entity.NoteFactory;
 import use_case.CreateInteractor;
 
+import java.io.IOException;
+
 public class CreateNoteInteractor implements CreateNoteInputBoundary {
 
     final CreateNoteDataAccessInterface noteDAO;
@@ -18,7 +20,7 @@ public class CreateNoteInteractor implements CreateNoteInputBoundary {
     }
 
     @Override
-    public void execute(CreateNoteInputData createNoteInputData) {
+    public void execute(CreateNoteInputData createNoteInputData) throws IOException {
         if (noteDAO.existsByTitle(createNoteInputData.getTitle())) {
             //notePresenter.prepareFailView("Title already exists.");
         } else {

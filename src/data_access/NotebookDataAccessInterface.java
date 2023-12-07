@@ -19,4 +19,5 @@ public interface NotebookDataAccessInterface {
     void deleteNotebook(LocalDateTime localDateTime);
     void renameNotebook(LocalDateTime notebookID, String newTitle);
 
+    boolean existsByName(String notebookName);
 }
