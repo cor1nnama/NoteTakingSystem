@@ -49,6 +49,7 @@ public class Main {
         FileUserDataAccessObject userDataAccessObject;
         try {
             userDataAccessObject = new FileUserDataAccessObject("./users.csv", new CommonUserFactory());
+            userDataAccessObject.readFromFile();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -56,6 +57,7 @@ public class Main {
         FileNoteDataAccessObject noteDataAccessObject;
         try {
             noteDataAccessObject = new FileNoteDataAccessObject("./notes.txt", new NoteFactory());
+            noteDataAccessObject.readFromFile();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -63,15 +65,20 @@ public class Main {
         FileNotebookDataAccessObject notebookDataAccessObject;
         try {
             notebookDataAccessObject = new FileNotebookDataAccessObject("./notebooks.txt", new NotebookFactory());
+            notebookDataAccessObject.readFromFile();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
+
+
 
         //Constructing views
         SignupView signupView = SignupUseCaseFactory.create(viewManagerModel, loginViewModel, signupViewModel, userDataAccessObject);
         views.add(signupView, signupView.viewName);
 
         LoginView loginView = LoginUseCaseFactory.create(viewManagerModel, loginViewModel, notebookLibraryViewModel, userDataAccessObject);
+        assert loginView != null;
         views.add(loginView, loginView.viewName);
 
         NotebookView notebookView = NotebookUseCaseFactory.create(viewManagerModel, notebookLibraryViewModel, noteLibraryViewModel, userDataAccessObject, notebookDataAccessObject);
@@ -80,8 +87,11 @@ public class Main {
         NoteView noteView = NoteUseCaseFactory.create(viewManagerModel, noteLibraryViewModel, editViewModel, userDataAccessObject, noteDataAccessObject);
         views.add(noteView, noteView.viewName);
 
+        EditView editView = EditUseCaseFactory.create(viewManagerModel, editViewModel, userDataAccessObject, notebookLibraryViewModel);
+
         viewManagerModel.setActiveView(signupView.viewName);
-        cardLayout.show(views, viewManagerModel.getActiveView());
+        viewManagerModel.firePropertyChanged();
+        //cardLayout.show(views, viewManagerModel.getActiveView());
         application.pack();
         application.setVisible(true);
     }

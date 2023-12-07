@@ -10,11 +10,13 @@ import use_case.user_end.signup.UserSignupDataAccessInterface;
 
 import java.io.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class FileUserDataAccessObject implements UserSignupDataAccessInterface, LoginUserDataAccessInterface, NotebookUserDataAccessInterface, NoteUserDataAccessInterface {
+public class FileUserDataAccessObject implements UserSignupDataAccessInterface, LoginUserDataAccessInterface,
+        NotebookUserDataAccessInterface, NoteUserDataAccessInterface, EditNoteDataAccessInterface {
     private final File usersFile;
 
     private final Map<String, Integer> headers = new LinkedHashMap<>();
@@ -90,4 +92,18 @@ public class FileUserDataAccessObject implements UserSignupDataAccessInterface, 
         return user.getPassword().equals(providedPassword);
     }
 
+    @Override
+    public Note getNoteByCreationTime(LocalDateTime creationTime) {
+        return null;
+    }
+
+    @Override
+    public ArrayList<Note> getAllNotes() {
+        return null;
+    }
+
+    @Override
+    public void saveEdit(Note note) {
+
+    }
 }

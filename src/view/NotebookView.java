@@ -25,18 +25,18 @@ public class NotebookView extends JPanel implements ActionListener, PropertyChan
     final JButton delete;
     final JButton edit;
     final JButton open;
-    private final NotebookLibraryController notebookLibraryController;
+    final Dimension MIN_SIZE =  new Dimension(100,50);
+    final NotebookLibraryController notebookLibraryController;
 
     public NotebookView(NotebookLibraryViewModel notebookLibraryViewModel, NotebookLibraryController notebookLibraryController) {
+        this.setVisible(false);
         this.notebookLibraryController = notebookLibraryController;
         this.notebookViewModel = notebookLibraryViewModel;
         this.notebookViewModel.addPropertyChangeListener(this);
 
         JLabel title = new JLabel(username + " Notebooks");
-        title.setAlignmentX((Component.CENTER_ALIGNMENT));
-
         JPanel notebookButtons = createNotebookButtons();
-        JScrollPane notebookLibScroll = new JScrollPane();
+
 
         for (Component button : notebookButtons.getComponents()) {
             JButton currButt = (JButton) button;
@@ -49,10 +49,14 @@ public class NotebookView extends JPanel implements ActionListener, PropertyChan
                 }
             });
         }
+        notebookButtons.setLayout(new FlowLayout());
+        //JScrollPane notebookLibScroll = new JScrollPane(notebookButtons);
+        //this.add(notebookLibScroll);
 
         JPanel bottomButtons = new JPanel();
         bottomButtons.setAlignmentY(Component.BOTTOM_ALIGNMENT);
         trash = new JButton(notebookLibraryViewModel.TRASH_BUTTON_LABEL);
+        trash.setMinimumSize(MIN_SIZE);
         bottomButtons.add(trash);
         delete = new JButton(notebookLibraryViewModel.DELETE_BUTTON_LABEL);
         bottomButtons.add(delete);
@@ -88,6 +92,7 @@ public class NotebookView extends JPanel implements ActionListener, PropertyChan
                 }
             }
         });
+
         open.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -98,7 +103,11 @@ public class NotebookView extends JPanel implements ActionListener, PropertyChan
             }
         });
 
-
+        this.setLayout(new FlowLayout());
+        this.add(title, BorderLayout.NORTH);
+        this.add(bottomButtons, BorderLayout.SOUTH);
+        //this.add(notebookLibScroll, BorderLayout.CENTER);
+        this.setVisible(true);
 
     }
 
@@ -119,6 +128,11 @@ public class NotebookView extends JPanel implements ActionListener, PropertyChan
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         NotebookLibraryState state = (NotebookLibraryState) evt.getNewValue();
+        setFields(state);
+
+    }
+
+    private void setFields(NotebookLibraryState state) {
         username = state.getUsername();
 
     }
