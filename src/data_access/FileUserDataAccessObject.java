@@ -3,6 +3,7 @@ package data_access;
 import entity.Note;
 import entity.User;
 import entity.UserFactory;
+import use_case.user_end.Note.NoteUserDataAccessInterface;
 import use_case.user_end.Notebook.NotebookUserDataAccessInterface;
 import use_case.user_end.login.LoginUserDataAccessInterface;
 import use_case.user_end.signup.UserSignupDataAccessInterface;
@@ -13,7 +14,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class FileUserDataAccessObject implements UserSignupDataAccessInterface, LoginUserDataAccessInterface, NotebookUserDataAccessInterface {
+public class FileUserDataAccessObject implements UserSignupDataAccessInterface, LoginUserDataAccessInterface, NotebookUserDataAccessInterface, NoteUserDataAccessInterface {
     private final File usersFile;
 
     private final Map<String, Integer> headers = new LinkedHashMap<>();

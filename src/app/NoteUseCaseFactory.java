@@ -35,14 +35,14 @@ public class NoteUseCaseFactory {
                                   NoteUserDataAccessInterface noteUserDataAccessInterface,
                                   NoteDataAccessInterface noteDataAccessInterface) {
 
-        try {
+        //try {
             NoteLibraryController noteLibraryController = createNoteUseCase(viewManagerModel, noteLibraryViewModel, editViewModel, noteUserDataAccessInterface,
                     noteDataAccessInterface);
             return new NoteView(noteLibraryViewModel, noteLibraryController);
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "Error reading user data file");
-        }
-        return null;
+        //} catch (IOException e) {
+         //   JOptionPane.showMessageDialog(null, "Error reading user data file");
+        //}
+        //return null;
     }
 
     private static NoteLibraryController createNoteUseCase(ViewManagerModel viewManagerModel,

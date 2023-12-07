@@ -37,7 +37,7 @@ public class NoteView extends JPanel implements ActionListener, PropertyChangeLi
         JLabel title = new JLabel(username + " Notes");
         title.setAlignmentX((Component.CENTER_ALIGNMENT));
 
-        JPanel notebookButtons = createNotebookButtons();
+        JPanel noteButtons = createNotebookButtons();
         JScrollPane noteLibScroll = new JScrollPane();
 
         for (Component button : noteButtons.getComponents()) {
@@ -65,8 +65,8 @@ public class NoteView extends JPanel implements ActionListener, PropertyChangeLi
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource().equals(trash)) {
-                    //NotebookLibraryState currState = notebookLibraryViewModel.getState();
-                    noteLibraryController.execute(selectedNote, noteLibraryViewModel.TRASH_BUTTON_LABEL);
+                    NoteLibraryState currState = noteLibraryViewModel.getState();
+                    noteLibraryController.execute(selectedNote, noteLibraryViewModel.TRASH_BUTTON_LABEL, currState.getNotebook());
                 }
             }
         });
@@ -74,26 +74,18 @@ public class NoteView extends JPanel implements ActionListener, PropertyChangeLi
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource().equals(delete)) {
-                    //NotebookLibraryState currState = notebookLibraryViewModel.getState();
-                    notebookLibraryController.execute(selectedNotebook, notebookLibraryViewModel.DELETE_BUTTON_LABEL);
+                    NoteLibraryState currState = noteLibraryViewModel.getState();
+                    noteLibraryController.execute(selectedNote, noteLibraryViewModel.DELETE_BUTTON_LABEL, currState.getNotebook());
                 }
             }
         });
-        edit.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (e.getSource().equals(edit)) {
-                    //NotebookLibraryState currState = notebookLibraryViewModel.getState();
-                    notebookLibraryController.execute(selectedNotebook, notebookLibraryViewModel.EDIT_BUTTON_LABEL);
-                }
-            }
-        });
+
         open.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource().equals(open)) {
-                    //NotebookLibraryState currState = notebookLibraryViewModel.getState();
-                    notebookLibraryController.execute(selectedNotebook, notebookLibraryViewModel.OPEN_BUTTON_LABEL);
+                    NoteLibraryState currState = noteLibraryViewModel.getState();
+                    noteLibraryController.execute(selectedNote, noteLibraryViewModel.OPEN_BUTTON_LABEL, currState.getNotebook());
                 }
             }
         });
@@ -104,8 +96,8 @@ public class NoteView extends JPanel implements ActionListener, PropertyChangeLi
 
     private JPanel createNotebookButtons() {
         JPanel buttons = new JPanel();
-        Map<LocalDateTime, String> notebooks = notebookViewModel.getState().getUserNotebooks();
-        for (Map.Entry<LocalDateTime, String> entry : notebooks.entrySet()) {
+        Map<LocalDateTime, String> notes = noteViewModel.getState().getNotes();
+        for (Map.Entry<LocalDateTime, String> entry : notes.entrySet()) {
             buttons.add(new JButton(entry.getValue()));
         }
         return buttons;
