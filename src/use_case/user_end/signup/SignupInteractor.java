@@ -28,7 +28,7 @@ public class SignupInteractor implements SignupInputBoundary{
         } else {
 
             LocalDateTime now = LocalDateTime.now();
-            User user = userFactory.create(signupInputData.getUsername(), signupInputData.getPassword());
+            User user = userFactory.createUser(signupInputData.getUsername(), signupInputData.getPassword());
             userDataAccessObject.save(user);
 
             SignupOutputData signupOutputData = new SignupOutputData(user.getUsername(), false);
