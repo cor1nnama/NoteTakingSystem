@@ -2,6 +2,7 @@ package data_access;
 
 import entity.Note;
 import entity.NoteFactory;
+import entity.Notebook;
 import use_case.notes.add_tags.AddTagDataAccessInterface;
 import use_case.notes.create_note.CreateNoteDataAccessInterface;
 import use_case.trash.delete_note.DeleteNoteDataAccessInterface;
@@ -10,7 +11,7 @@ import java.io.*;
 import java.time.LocalDateTime;
 import java.util.*;
 
-public class FileNoteDataAccessObject implements CreateNoteDataAccessInterface, EditNoteDataAccessInterface, AddTagDataAccessInterface, DeleteNoteDataAccessInterface {
+public class FileNoteDataAccessObject implements CreateNoteDataAccessInterface, EditNoteDataAccessInterface, AddTagDataAccessInterface, DeleteNoteDataAccessInterface, NoteDataAccessInterface {
     private final File notesFile;
     private static final String CSV_FILE_PATH = "notes.csv";
     private final Map<String, Integer> headers = new LinkedHashMap<>();
@@ -34,6 +35,21 @@ public class FileNoteDataAccessObject implements CreateNoteDataAccessInterface, 
     }
 
 
+    @Override
+    public boolean existsByLDT(LocalDateTime ldt) {
+        return false;
+    }
+
+    @Override
+    public void save(LocalDateTime ldt, Notebook notebook) throws IOException {
+
+    }
+
+    @Override
+    public Map<LocalDateTime, String> getNotesInNotebook(LocalDateTime notebookID) {
+        return null;
+    }
+
     //add catches for errors for both file methods
     @Override
     public void writeToFile() throws IOException {
@@ -48,6 +64,16 @@ public class FileNoteDataAccessObject implements CreateNoteDataAccessInterface, 
 
         osOut.close();
         fsOut.close();
+    }
+
+    @Override
+    public void deleteNotebook(LocalDateTime localDateTime) {
+
+    }
+
+    @Override
+    public void renameNotebook(LocalDateTime notebookID, String newTitle) {
+
     }
 
     public void readFromFile() throws IOException {

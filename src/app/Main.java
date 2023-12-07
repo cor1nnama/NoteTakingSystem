@@ -8,6 +8,7 @@ import entity.NoteFactory;
 import entity.NotebookFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.notes.editNote.EditViewModel;
+import interface_adapter.user_end.NoteLibraryView.NoteLibraryViewModel;
 import interface_adapter.user_end.NotebookLibraryView.NotebookLibraryState;
 import interface_adapter.user_end.NotebookLibraryView.NotebookLibraryViewModel;
 import interface_adapter.user_end.login.LoginViewModel;
@@ -76,7 +77,7 @@ public class Main {
         NotebookView notebookView = NotebookUseCaseFactory.create(viewManagerModel, notebookLibraryViewModel, noteLibraryViewModel, userDataAccessObject, notebookDataAccessObject);
         views.add(notebookView, notebookView.viewName);
 
-        NoteView noteView = NoteUseCaseFactory.create(viewManagerModel, notebookLibraryViewModel, editViewModel, userDataAccessObject);
+        NoteView noteView = NoteUseCaseFactory.create(viewManagerModel, noteLibraryViewModel, editViewModel, userDataAccessObject, noteDataAccessObject);
         views.add(noteView, noteView.viewName);
 
         viewManagerModel.setActiveView(signupView.viewName);

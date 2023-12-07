@@ -3,18 +3,18 @@ package use_case.user_end.Note;
 import java.time.LocalDateTime;
 
 public class NoteInputData {
-    private final LocalDateTime selectedNotebook;
+    private final LocalDateTime selectedNote;
     private final String action;
-    private final String currUser;
+    private final LocalDateTime currNotebook;
 
 
-    public NoteInputData(LocalDateTime buttonPressed, String action, LocalDateTime currUser) {
-        this.selectedNotebook = buttonPressed;
+    public NoteInputData(LocalDateTime buttonPressed, String action, LocalDateTime currNotebook) {
+        this.selectedNote = buttonPressed;
         this.action = action;
-        this.currUser = currUser;
+        this.currNotebook = currNotebook;
     }
 
-    LocalDateTime getselectedNotebook() { return selectedNotebook; }
+    LocalDateTime getselectedNote() { return selectedNote; }
     String getAction() { return action; }
-    public String getCurrUser() { return currUser; }
+    public LocalDateTime getCurrNotebook() { return currNotebook; }
 }

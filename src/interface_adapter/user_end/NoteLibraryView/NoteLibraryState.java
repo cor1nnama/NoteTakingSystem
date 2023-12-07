@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import java.util.Map;
 
 public class NoteLibraryState {
-    private String username = "";
+    private LocalDateTime notebook;
     private String buttonPressed;
 
     private Map<LocalDateTime, String> userNotes;
@@ -13,7 +13,7 @@ public class NoteLibraryState {
 
 
     public NoteLibraryState(NoteLibraryState copy) {
-        username = copy.username;
+        notebook = copy.notebook;
         userNotes = copy.userNotes;
         buttonPressed = copy.buttonPressed;
     }
@@ -21,10 +21,10 @@ public class NoteLibraryState {
     // Because of the previous copy constructor, the default constructor must be explicit.
     public NoteLibraryState() {}
 
-    public String getUsername() {
-        return username;
+    public LocalDateTime getNotebook() {
+        return notebook;
     }
-    public void setUsername(String username) { this.username = username; }
+    public void setNotebook(LocalDateTime notebook) { this.notebook = notebook; }
     public String getButtonPressed() { return buttonPressed; }
     public LocalDateTime getNCreationTime(String title) {
         return userNotes.entrySet()

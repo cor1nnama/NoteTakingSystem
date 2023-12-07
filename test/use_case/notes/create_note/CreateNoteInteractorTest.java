@@ -2,6 +2,7 @@ package use_case.notes.create_note;
 
 import data_access.InMemoryDataAccessObject;
 import entity.NoteFactory;
+import org.junit.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 // This is just a basic skeleton. Once the rest of the CreateNote classes are created I will update this file
@@ -16,7 +17,7 @@ class CreateNoteInteractorTest {
             public void prepareSuccessView(NoteLibraryOutputData NLod) {
                 // 2 things to check: the output data is correct, and the user has been created in the DAO.
                 assertTrue(noteRepo.existsByTitle("Week 9"));
-                assertTrue(NLod.getTags().contains("Regex"))
+                assertTrue(NLod.getTags().contains("Regex"));
             }
 
             @Override

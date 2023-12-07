@@ -26,14 +26,14 @@ public class NotebookUseCaseFactory {
                                       NotebookUserDataAccessInterface notebookUserDataAccessInterface,
                                       NotebookDataAccessInterface notebookDataAccessInterface) {
 
-        try {
+        //try {
             NotebookLibraryController notebookLibraryController = createNotebookUseCase(viewManagerModel, notebookLibraryViewModel, noteLibraryViewModel, notebookUserDataAccessInterface,
                     notebookDataAccessInterface);
             return new NotebookView(notebookLibraryViewModel, notebookLibraryController);
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "Error reading user data file");
-        }
-        return null;
+        //} catch (IOException e) {
+        //    JOptionPane.showMessageDialog(null, "Error reading user data file");
+        //}
+        //return null;
     }
 
     private static NotebookLibraryController createNotebookUseCase(ViewManagerModel viewManagerModel,

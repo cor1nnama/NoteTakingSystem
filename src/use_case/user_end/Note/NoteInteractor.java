@@ -25,8 +25,8 @@ public class NoteInteractor implements NoteInputBoundary {
     public void execute(NoteInputData noteInputData) {
         String action = noteInputData.getAction();
         if (action.equals(OPEN)) {
-
-            //notePresenter.prepareSuccessView(noteOutputData);
+        NoteOutputData noteOutputData = new NoteOutputData(noteInputData.getselectedNote());
+            notePresenter.prepareSuccessView(noteOutputData);
         } else if (action.equals(TRASH)) {
 
         }  else if (action.equals(DELETE)) {
