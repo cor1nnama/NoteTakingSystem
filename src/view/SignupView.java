@@ -133,7 +133,7 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
             try {
                 signupController.execute(username, password, repeatPassword);
             } catch (IOException e) {
-                JOptionPane.showMessageDialog(null, "Sighup Error");
+                JOptionPane.showMessageDialog(null, e.toString());
             }
         }
     }

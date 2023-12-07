@@ -1,10 +1,11 @@
 package entity;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Map;
 
-public interface User{
+public interface User extends Serializable {
     // this class states the commonly used method of note-taking users
     void setUsername(String newName);
     void setPassword(String newPassword);
