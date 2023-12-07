@@ -24,7 +24,7 @@ public class SignupViewTest {
     /**
      * ensures there are at least 2 users in the CSV file for testing purposes
      */
-    public void addTwoUsers() {
+    public void addTwoUsers() throws IOException {
         UserFactory uf = new CommonUserFactory();
         FileUserDataAccessObject fudao;
         try {
@@ -32,8 +32,8 @@ public class SignupViewTest {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        fudao.save(uf.create("user1", "password1"));
-        fudao.save(uf.create("user2", "password2"));
+        fudao.save(uf.createUser("user1", "password1"));
+        fudao.save(uf.createUser("user2", "password2"));
     }
 
 

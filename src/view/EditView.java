@@ -50,8 +50,6 @@ public class EditView extends JPanel implements PropertyChangeListener {
                     }
                 }
         );
-
-
     }
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
