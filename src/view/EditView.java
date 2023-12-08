@@ -14,6 +14,7 @@ import java.beans.PropertyChangeListener;
 import java.time.LocalDateTime;
 
 public class EditView extends JPanel implements PropertyChangeListener {
+    public final String viewName = "edit view";
     private EditViewModel editViewModel;
     private EditController editController;
     private JButton saveNote;
