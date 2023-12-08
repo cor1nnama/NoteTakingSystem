@@ -6,13 +6,14 @@ import entity.User;
 import entity.UserFactory;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class SignupInteractorTest {
     @Test
-    void successTest() {
+    void successTest() throws IOException {
         SignupInputData inputData = new SignupInputData("Paul", "password", "password");
         UserSignupDataAccessInterface userRepository = new InMemoryUserDataAccessObject();
 
@@ -36,7 +37,7 @@ class SignupInteractorTest {
     }
 
     @Test
-    void failurePasswordMismatchTest() {
+    void failurePasswordMismatchTest() throws IOException {
         SignupInputData inputData = new SignupInputData("Paul", "password", "wrong");
         UserSignupDataAccessInterface userRepository = new InMemoryUserDataAccessObject();
 
@@ -57,13 +58,13 @@ class SignupInteractorTest {
     }
 
     @Test
-    void failureUserExistsTest() {
+    void failureUserExistsTest() throws IOException {
         SignupInputData inputData = new SignupInputData("Paul", "password", "wrong");
         UserSignupDataAccessInterface userRepository = new InMemoryUserDataAccessObject();
 
         // Add Paul to the repo so that when we check later they already exist
         UserFactory factory = new CommonUserFactory();
-        User user = factory.create("Paul", "pwd");
+        User user = factory.createUser("Paul", "pwd");
         userRepository.save(user);
 
         // This creates a presenter that tests whether the test case is as we expect.

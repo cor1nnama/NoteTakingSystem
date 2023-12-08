@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class LoginViewTest {
 
-    public JButton getLoginButton() {
+    public JButton getLoginButtonLogin() {
         JFrame app = null;
         Window[] windows = Window.getWindows();
         for (Window window : windows) {
@@ -63,9 +63,9 @@ class LoginViewTest {
         return (JButton) buttons.getComponent(1); // this should be the cancel button
     }
     @Test
-    public void testLoginButtonPresent() {
+    public void testLoginButtonPresentLogin() {
         Main.main(null);
-        JButton button = getLoginButton();
+        JButton button = getLoginButtonLogin();
         assert(button.getText().equals("Login"));
     }
     @org.junit.Test

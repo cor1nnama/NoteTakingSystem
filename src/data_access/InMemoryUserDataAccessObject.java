@@ -32,11 +32,13 @@ public class InMemoryUserDataAccessObject implements UserSignupDataAccessInterfa
 
     @Override
     public User get(String username) {
-        return null;
+            return users.get(username);
+
     }
 
     @Override
     public boolean authenticateUser(String username, String password) {
-        return false;
+        User user = users.get(username);
+        return user.getPassword().equals(password);
     }
 }

@@ -97,7 +97,7 @@ public class SignupViewTest {
     public void testSignupButtonPresent() {
         Main.main(null);
         JButton button = getSignupButton();
-        assert(button.getText().equals("Sign Up"));
+        assert(button.getText().equals("Sign up"));
     }
     @org.junit.Test
     public void testCancelButtonPresent() {
