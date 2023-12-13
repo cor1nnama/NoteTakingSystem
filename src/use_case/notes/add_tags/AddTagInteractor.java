@@ -22,7 +22,7 @@ public class AddTagInteractor implements AddTagInputBoundary {
         LocalDateTime creationTime = addTagNoteInputData.getCreationTime();
         Note note = addTagDataAccessInterface.getNoteByCreationTime(creationTime);
         if (note.getTags().contains(tag)) {
-            addTagPresenter.prepareFailView("Tag already exists");
+            addTagPresenter.prepareFailView("Tag Already Exists");
         }
         else {
             addTagDataAccessInterface.addTag(tag, creationTime);

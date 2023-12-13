@@ -2,6 +2,7 @@ package entity;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -17,7 +18,7 @@ public class CommonUser implements User{
     public CommonUser(String username, String password){
         this.username = username;
         this.password = password;
-        this.notebooks = null;
+        this.notebooks = new HashMap<>();
         this.trash = new Trash();
     }
     @Override

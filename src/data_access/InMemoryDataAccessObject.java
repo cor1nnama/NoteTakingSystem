@@ -16,7 +16,8 @@ public class InMemoryDataAccessObject implements EditNoteDataAccessInterface, Ad
     private final Map<LocalDateTime, Note> map = new HashMap<>();
 
     public InMemoryDataAccessObject() {
-        Note note1 = new Note("CSC207", null);
+        ArrayList <String> tags = new ArrayList<>();
+        Note note1 = new Note("CSC207", tags);
         note1.setTag("OOP");
         LocalDateTime ldt = note1.creationTime;
         map.put(ldt, note1);

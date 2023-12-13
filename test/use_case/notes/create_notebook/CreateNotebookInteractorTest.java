@@ -5,13 +5,16 @@ import data_access.NotebookDataAccessInterface;
 import entity.CommonUser;
 import entity.NotebookFactory;
 import org.junit.jupiter.api.Test;
+
+import java.io.IOException;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class CreateNotebookInteractorTest {
     @Test
-    void successTest() {
+    void successTest() throws IOException {
         CommonUser user = new CommonUser ("username", "password");
-        CreateNotebookInputData inputData = new CreateNotebookInputData("CSC207", user);
+        CreateNotebookInputData inputData = new CreateNotebookInputData("CSC207", "username");
         NotebookDataAccessInterface notebookRepo = new InMemoryNotebookDataAccessObject();
 
         CreateNotebookOutputBoundary successPresenter = new CreateNotebookOutputBoundary() {
@@ -32,9 +35,9 @@ class CreateNotebookInteractorTest {
     }
 
     @Test
-    void failureNotebookExistsTest() {
+    void failureNotebookExistsTest() throws IOException {
         CommonUser user = new CommonUser ("username", "password");
-        CreateNotebookInputData inputData = new CreateNotebookInputData("CSC207", user);
+        CreateNotebookInputData inputData = new CreateNotebookInputData("CSC207", "username");
         NotebookDataAccessInterface notebookRepo = new InMemoryNotebookDataAccessObject();
 
         CreateNotebookOutputBoundary successPresenter = new CreateNotebookOutputBoundary() {

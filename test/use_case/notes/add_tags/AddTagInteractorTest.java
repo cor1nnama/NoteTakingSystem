@@ -2,6 +2,7 @@ package use_case.notes.add_tags;
 
 import data_access.InMemoryDataAccessObject;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -11,7 +12,7 @@ import org.junit.jupiter.api.Test;
 class AddTagInteractorTest {
 
     @Test
-    void successTest() {
+    void successTest() throws IOException {
         AddTagDataAccessInterface noteRepo = new InMemoryDataAccessObject();
         Note note = noteRepo.getAllNotes().get(0);
         LocalDateTime ldt = note.creationTime;
@@ -36,7 +37,7 @@ class AddTagInteractorTest {
     }
 
     @Test
-    void failureTagAlreadyExists() {
+    void failureTagAlreadyExists() throws IOException {
         AddTagDataAccessInterface noteRepo = new InMemoryDataAccessObject();
         Note note = noteRepo.getAllNotes().get(0);
         LocalDateTime ldt = note.creationTime;

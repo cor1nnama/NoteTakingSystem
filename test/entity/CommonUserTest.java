@@ -2,6 +2,8 @@ package entity;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -28,7 +30,7 @@ class CommonUserTest {
     @org.junit.jupiter.api.Test
     void testGetPassword(){
         CommonUser user = new CommonUser("bgh23", "ssd");
-        assertEquals("ssd", user.getUsername());
+        assertEquals("ssd", user.getPassword());
     }
     @org.junit.jupiter.api.Test
     void testAddOneNotebook() {
@@ -37,8 +39,8 @@ class CommonUserTest {
         LocalDateTime ldt = notebook.getCreationTime();
         user.addNotebook(notebook);
         assertTrue(user.notebooks.containsKey(ldt));
-        ArrayList <LocalDateTime> nbs = new ArrayList<>();
-        nbs.add(ldt);
+        Map<LocalDateTime, String> nbs = new HashMap<>();
+        nbs.put(ldt, "CSC207");
         assertEquals(nbs, user.notebooks);
     }
     @org.junit.jupiter.api.Test
@@ -53,10 +55,10 @@ class CommonUserTest {
         user.addNotebook(notebook1);
         user.addNotebook(notebook2);
         user.addNotebook(notebook3);
-        ArrayList <LocalDateTime> nbs = new ArrayList<>();
-        nbs.add(ldt1);
-        nbs.add(ldt2);
-        nbs.add(ldt3);
+        Map<LocalDateTime, String> nbs = new HashMap<>();
+        nbs.put(ldt1, "CSC207");
+        nbs.put(ldt2, "MAT237");
+        nbs.put(ldt3, "STA257");
         assertEquals(nbs, user.notebooks);
     }
 }

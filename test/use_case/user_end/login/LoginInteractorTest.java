@@ -18,7 +18,7 @@ class LoginInteractorTest {
                 @Override
                 public void prepareSuccessView(LoginOutputData loginOutputData) {
                     // 2 things to check: the output data is correct, and the user has been created in the DAO.
-                    assertEquals("Imtiaz", loginOutputData.getUsername());
+                    assertEquals("Imtiaz", loginOutputData.getUser().getUsername());
                     assertTrue(userRepo.existsByName("Imtiaz"));
                 }
 
