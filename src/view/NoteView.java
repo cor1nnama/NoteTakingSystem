@@ -20,7 +20,7 @@ import java.util.Map;
 
 public class NoteView extends JPanel implements ActionListener, PropertyChangeListener {
 
-    public final String viewName = "notebook library";
+    public final String viewName = "note library";
     private String username;
     private final NoteLibraryViewModel noteViewModel;
     private LocalDateTime selectedNote;

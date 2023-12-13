@@ -1,6 +1,7 @@
 package view;
 
 import entity.Note;
+import interface_adapter.notes.create_notebook.CreateNotebookController;
 import interface_adapter.user_end.NotebookLibraryView.NotebookLibraryController;
 import interface_adapter.user_end.NotebookLibraryView.NotebookLibraryState;
 import interface_adapter.user_end.NotebookLibraryView.NotebookLibraryViewModel;
@@ -11,6 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Map;
@@ -25,14 +27,18 @@ public class NotebookView extends JPanel implements ActionListener, PropertyChan
     final JButton delete;
     final JButton edit;
     final JButton open;
+    final JButton create;
     final Dimension MIN_SIZE =  new Dimension(100,50);
     final NotebookLibraryController notebookLibraryController;
+    final CreateNotebookController createNotebookController;
 
-    public NotebookView(NotebookLibraryViewModel notebookLibraryViewModel, NotebookLibraryController notebookLibraryController) {
+    public NotebookView(NotebookLibraryViewModel notebookLibraryViewModel, NotebookLibraryController notebookLibraryController, CreateNotebookController createNotebookController) {
         this.setVisible(false);
         this.notebookLibraryController = notebookLibraryController;
+        this.createNotebookController = createNotebookController;
         this.notebookViewModel = notebookLibraryViewModel;
         this.notebookViewModel.addPropertyChangeListener(this);
+        username = notebookLibraryViewModel.getState().getUsername();
 
         JLabel title = new JLabel(username + " Notebooks");
         JPanel notebookButtons = createNotebookButtons();
@@ -50,8 +56,8 @@ public class NotebookView extends JPanel implements ActionListener, PropertyChan
             });
         }
         notebookButtons.setLayout(new FlowLayout());
-        //JScrollPane notebookLibScroll = new JScrollPane(notebookButtons);
-        //this.add(notebookLibScroll);
+        JScrollPane notebookLibScroll = new JScrollPane(notebookButtons);
+        this.add(notebookLibScroll);
 
         JPanel bottomButtons = new JPanel();
         bottomButtons.setAlignmentY(Component.BOTTOM_ALIGNMENT);
@@ -64,6 +70,8 @@ public class NotebookView extends JPanel implements ActionListener, PropertyChan
         bottomButtons.add(edit);
         open = new JButton(notebookLibraryViewModel.OPEN_BUTTON_LABEL);
         bottomButtons.add(open);
+        create = new JButton(notebookLibraryViewModel.CREATE_BUTTON_LABEL);
+        bottomButtons.add(create);
 
         trash.addActionListener(new ActionListener() {
             @Override
@@ -102,11 +110,25 @@ public class NotebookView extends JPanel implements ActionListener, PropertyChan
                 }
             }
         });
+        create.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (e.getSource().equals(create)) {
+                    String title = JOptionPane.showInputDialog("Enter Title");
+                    NotebookLibraryState currState = notebookLibraryViewModel.getState();
+                    try {
+                        createNotebookController.execute(title, currState.getUsername());
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                }
+            }
+        });
 
-        this.setLayout(new FlowLayout());
+        this.setLayout(new BorderLayout());
         this.add(title, BorderLayout.NORTH);
         this.add(bottomButtons, BorderLayout.SOUTH);
-        //this.add(notebookLibScroll, BorderLayout.CENTER);
+        this.add(notebookLibScroll, BorderLayout.CENTER);
         this.setVisible(true);
 
     }

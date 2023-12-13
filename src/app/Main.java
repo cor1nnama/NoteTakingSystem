@@ -88,6 +88,7 @@ public class Main {
         views.add(noteView, noteView.viewName);
 
         EditView editView = EditUseCaseFactory.create(viewManagerModel, editViewModel, userDataAccessObject, notebookLibraryViewModel);
+        views.add(editView, editView.viewName);
 
         viewManagerModel.setActiveView(signupView.viewName);
         viewManagerModel.firePropertyChanged();

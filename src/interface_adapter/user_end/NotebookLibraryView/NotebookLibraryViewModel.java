@@ -6,10 +6,12 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 public class NotebookLibraryViewModel extends ViewModel {
+
     public final String TITLE_LABEL = "Notebook Library";
 
     private NotebookLibraryState state = new NotebookLibraryState();
     public static final String LOGOUT_BUTTON_LABEL = "Log Out";
+    public static final String CREATE_BUTTON_LABEL = "Create";
     public static final String DELETE_BUTTON_LABEL = "Delete";
     public static final String TRASH_BUTTON_LABEL = "Trash";
     public static final String EDIT_BUTTON_LABEL = "Edit";
